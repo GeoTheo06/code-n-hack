@@ -1,0 +1,197 @@
+---
+layout: post
+title: Useful and fun C++ Commands and explanation
+date: 2022-06-06 17:42:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- C++
+- Programming Notes
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: "#post_title"
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/programming-notes/cpp/useful-and-fun-c-commands-and-explanation/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<!-- wp:paragraph --><html><body></p>
+<p>Pro tip: global variables (variables that are initialized under no class or function) are more useful than you think.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Remember to use while instead of for when you don’t know how many times you want a function of the app to loop</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>Pause Execution</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Sleep(1000); //sleep command in milliseconds - You don’t need to include anything</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>True Random</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>I don’t know any library for pseudo Randoms in C++ but it doesn’t matter because true Randoms are just better. For true random number generation you need this line before you use the rand() function:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>srand(time(0)); OR srand(time(NULL));</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Without this, the program generates the same number every time it’s ran. Now pay attention because the way rand() is used is very tricky. This command generates a number from 0 to 10:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>rand() % 10</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>To specify a minimum number you want the generation to start from, you have to specify the lowest (minimum) number and then specify how much more you want. So you add the number and the sum of these two numbers has to be the maximum number. This is too difficult to express… Example:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>So in this case, we want a random generation from 5 to 10. The code will look like this:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>rand() % 5 + 5</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>To make it easier, note that this is the same as the previous command: (rand() % 5) + 5</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>What happens behind the compiler, is that it will firstly fiind a number from 0 to 5 right?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>(rand() % 5) + 5. So the output until here is 0 (lowest) and 5 (greatest). The next step that the compiler has to do, is to add 5 to that output: (rand() % 5) + 5. So, now the output is 0 + 5 (lowest) to 5 + 5 (greatest). This means from 5 to 10.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Pro tip: to find the numbers you need to write: put the lowest number first: rand() % 5 + 5</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Then, substract this number (the minimum number) from the maximum number (10), (so we have: 10 – 5 = 5 ) and add this difference with the minimum: rand() % 5 + 5</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>Pointers</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>As you know every variable is a memory location and every memory location has its address defined which can be accessed using ‘&amp;’ which shows an address in memory. A pointer is a variable whose value is the address of another variable. Example:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>int  var1;</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>    char var2[10];</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>    cout &lt;&lt; "Address of var1: ";</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>    cout &lt;&lt; &amp;var1 &lt;&lt; endl;</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>    cout &lt;&lt; "Address of var2: ";</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>    cout &lt;&lt; &amp;var2;</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Output:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:preformatted --></p>
+<pre class="wp-block-preformatted">Address of var1 variable: 0xvretg5c0</pre>
+<p><!-- /wp:preformatted --></p>
+<p><!-- wp:preformatted --></p>
+<pre class="wp-block-preformatted">Address of var2 variable: 0xvretg5b6</pre>
+<p><!-- /wp:preformatted --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>Preferred way of initializing dynamic arrays</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>When you want to use arrays of unknown size, you should use pointers so the program can use the variable's memory to store bytes - allocate memory:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>int* array = new int[userInput];</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Because that is the only portable way to initialize arrays – works on all compilers. After you are done with the array you should free its memory by adding this command:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>delete[] array;</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>Files (fstream)</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>You need to include fstream for this to work: #include &lt;fstream&gt;</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>and probably string?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>//Best way to Write text in a file:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>      fstream file;</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>      file.open("file.txt", fstream::app);</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>      file &lt;&lt; "This is content in a file!\n";</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>      //Best way to get text from a file in a variable:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>      string content;</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>      ifstream file("file.txt");</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>      while (getline(file, content)) { //note: getline goes line by line, so it goes down by one line each loop</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>            cout &lt;&lt; content &lt;&lt; endl;</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>      }</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>      file.close(); //Closing the file because else it stays open in the memory</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>Windows CMD Commands</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>When coding console applications you can manipulate the console by sending batch commands. This means that you can do anything C++, you can with Windows CMD. You just have to include windows.h. The syntax is:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>system("Any CMD command");</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Examples:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>system("shutdown - s - t 1");</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>system("ipconfig /release");</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>system("timeout 2 &gt; nul"); // “ &gt; nul” makes the console not print “Waiting for 2 seconds… Press any button to skip”</p>
+<p><!-- /wp:paragraph --><br />
+</body></html></p>

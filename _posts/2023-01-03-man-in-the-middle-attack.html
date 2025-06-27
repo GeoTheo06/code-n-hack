@@ -1,0 +1,78 @@
+---
+layout: post
+title: Man In The Middle Attack
+date: 2023-01-03 20:21:54.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Ethical Hacking
+- Kali Linux
+- WiFi Attacks
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: ''
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/ethical-hacking/kali-linux/man-in-the-middle-attack/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<!-- wp:paragraph --><html><body></p>
+<p><strong>IMPORTANT: This post and any other post I upload is written for informational and educational purposes only! DO NOT try this on any network you do not have permission to ethically test.</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>When we perfrom a MiTM attack, we usually want to sniff data from a device connected to a network we have access. These data can be passwords, messages and everything else that goes through the internet. The problem is that these data are often encrypted though we'll see what we can do for this later. Another problem which comes before the encryption problem is that we cannot access the data as the device sends them to the router and the router to the internet. To fix this we will have to do an attack called arp poisoning.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The Address Resolution Protocol (ARP) is a networking protocol used to translate Internet Protocol (IP) addresses into physical addresses, such as Ethernet addresses. Every device on a network has a unique physical address (also known as a MAC address) that is used to identify it on the network. When a device wants to send a packet to another device on the same network, it needs to know the MAC address of the destination device. <strong>The ARP protocol is used to resolve IP addresses to MAC addresses</strong>. When a device wants to send a packet to another device on the same network, it sends an ARP request to the network, asking for the MAC address of the destination device. If the destination device is on the same network, it responds with its MAC address, and the sender can then use this information to send the packet directly to the destination device.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>ARP poisoning (also known as ARP spoofing) is a type of attack in which an attacker sends malicious ARP messages to a network in an attempt to associate the attacker's MAC address with the IP address of a legitimate device on the network. This can allow the attacker to intercept and potentially modify traffic intended for the legitimate device.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Here is an example of how ARP poisoning works:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list {"ordered":true} --></p>
+<ol>
+<!-- wp:list-item --></p>
+<li>Attacker A wants to intercept traffic intended for Device B.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>Attacker A sends an ARP message to the network, associating its own MAC address with the IP address of Device B.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>Devices on the network receive the ARP message and update their ARP caches to associate the IP address of Device B with the MAC address of Attacker A.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>When Device C wants to send a packet to Device B, it looks in its ARP cache and sees that the MAC address of Attacker A is associated with the IP address of Device B.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>Device C sends the packet to Attacker A, thinking that it is sending it to Device B.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>Attacker A receives the packet and can read or modify it before forwarding it to Device B.</li>
+<p><!-- /wp:list-item -->
+</ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>What we are going to do to perform the MiTM attack is to set router's ip address to our own MAC address and the device's ip address to our own MAC address as well. Then, the router will send the data meant for the device to me and the device is going to set the data meant for the router to me! To keep the connection alive so that no-one suspects a thing, we are going to forward the messages delivered from the router to the device and the messages delivered from the device to the router! With that set up we are already sniffing the data.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --><br />
+</body></html></p>

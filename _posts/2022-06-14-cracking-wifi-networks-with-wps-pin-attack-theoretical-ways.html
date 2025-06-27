@@ -1,0 +1,187 @@
+---
+layout: post
+title: Cracking WiFi networks - Handshake - Hashcat - GPU Crack (Theoretical Ways)
+date: 2022-06-14 17:24:07.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Ethical Hacking
+- Kali Linux
+- WiFi Attacks
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: "#post_title"
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/ethical-hacking/kali-linux/cracking-wifi-networks-with-wps-pin-attack-theoretical-ways/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<!-- wp:paragraph --><html><body></p>
+<p><strong>IMPORTANT: This post and any other post I upload is written for informational and educational purposes only! DO NOT try this on any network you do not have permission to ethically test.</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Before 2003 it was chaos, Wi-Fi was so vulnerable, everyone's DMs (if there where any back then) were leaking to everyone connected to the network. That's when WPA (Wi-Fi Protected Access) was developed. Though, WPA was not good enough so the next year they released the second version: WPA2. This was too perfect and it still is. The only problem is that they released WPS for the non-Tech people and devices hard to write letters on (like printers or something). WPS is an 8 digit number (what the) which is permanent to the router and written in the back of it. No matter if you change the password, WPS is still that same 8 digit number and most important: number-only passwords are the easier to crack.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>To start, you will need a kali Linux machine running either natively or in a virtual machine (It doesn't matter). If you don't know how you can follow the steps I explained in previous posts. You can use the <a href="https://dev-code-n-hack.pantheonsite.io/download-and-install-kali-linux-on-windows-10-11-using-virtualbox-the-easy-method/">easy method</a> (preinstalled) or the one you can <a href="https://dev-code-n-hack.pantheonsite.io/download-and-install-kali-linux-on-windows-10-11-using-virtualbox/">configure everything by yourself</a>. Also, you will need a Wi-Fi adapter supporting linux, packet injection and monitor mode (I am not sure if an integrated one will do) I suggest <a href="https://www.amazon.com/Alfa-AWUS036NHA-Wireless-USB-Adaptor/dp/B004Y6MIXS">ALFA AWUS036NHA</a> not only because you get a much higher range, but it supports monitor mode, packet injection and is made for kali as well. Doesn't work with windows 10 (You will need a driver) Works though perfectly with windows 7/8 (not sure)/11.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>IMPORTANT: Also, don't forget that the virtual machine may need to be on the same network as the windows machine. For example they both have to be on 192.168.1.0/24. to make that sure, go to the virtual machine's settings and in network tab, choose "bridged adapter" and select the name of your adapter. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Let's Begin!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Before we start anything we should check our wifi adapter:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Connect your adapter to the virtual machine:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":212,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-12-33-25.png" alt="" class="wp-image-212"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Let's check our ip and what mode our adapter is on. Type "ip addr" to see many information</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":213,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-12-35-23.png" alt="" class="wp-image-213"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>"airmon-ng" to see information about our adapter:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":217,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-12-40-22.png" alt="" class="wp-image-217"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Note: My interface is wlan0</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>we can also use "iwconfig" to see the mode of our adapter:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":214,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-12-36-27.png" alt="" class="wp-image-214"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>As most of the adapters by default, the mode is managed. What we need for our attacks is monitor mode. To set our adapter to monitor mode we need to type </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>"airmon-ng check kill" to kill any processes which may interfere with the with enabling of the monitor mode and then "airmon-ng start wlan0" (replace wlan0 with your interface. The name is displayed with the command iwconfig) to put our adapter to monitor mode.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":215,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-12-39-48.png" alt="" class="wp-image-215"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now if we run "iwconfig" once again, we can see that it says mode:Monitor and the name of our interface has changed from wlan0 to wlan0mon.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":216,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-12-40-05.png" alt="" class="wp-image-216"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph {"fontSize":"large"} --></p>
+<p class="has-large-font-size">Step 1: recognizance </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>After we set our adapter properly we can proceed to the recognizance process in which we have to gather information about our target (our own network). The command for this is "airodump-ng &lt;interface&gt;" and for me it is "airodump-ng wlan0mon". By entering this command, our adapter will hop from channel to channel to discover networks, if we let this run for 2-3 minutes (and press ctrl + c to stop it) we can see many information about the networks in our area:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":218,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-12-44-32.png" alt="" class="wp-image-218"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Under BSSID we can see the MAC addresses of the routers, under ENC we can see the router's version of the protocol. Under PWR we can see how strong the packets from a specific router is (the lower the better), under ESSID we see the name of the network. Under the second row of networks we can see an additional tab named station. This station is the MAC addresses of the clients connected to a network and BSSID shows the MAC of the router in which they are connected to. Find your own network and copy the bssid, the channel in which it is somewhere for later use. Now run the same attack but now targeting this network: "airodump-ng wlan0mon -d &lt;BSSID&gt;" and the output looks like this:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":221,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-12-51-41.png" alt="" class="wp-image-221"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>As you can see I have two clients connected to this network, I will copy the MAC of one of them which is located  under STATION and will save it for later.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Step 2: Capturing the handshake</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The next step of our attack is to capture the 4-way handshake. This handshake happens between any devices that connect to the router. During this handshake the client will send the password to the router so the router can compare it to the actual password and let the client in if the password is correct. As the client connects over Wi-Fi, we can capture the packets as if we were the router, though the contents will encrypted. To capture the handshake we actually need to monitor the network while a client is connecting with the correct password. Because we won't wait until someone is connected (because it will take much time) we will disconnect the client so he will be forced to reconnect or his device will automatically reconnect (It's a feature in almost every phone). Note: We don't need to be connected to the client's network to disconnect them. One way to do this is to copy the client's MAC and pretend that we are this client and that we request to be disconnected from the network, then we change again our MAC back to normal and the router disconnects this client lol. Let's see how to do this in practice.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>If you are connected over cable, you might need to disable this connection:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>"ifconfig eth0 down"</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The command to disconnect someone from his network is </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>"aireplay-ng --deauth 0 -a &lt;BSSID&gt;" 0 means that the deauth packets will be sent infinitely until you ctrl + c it. This will try to disconnect everyone, but we can optionally disconnect a specific user with the -c parameter and their MAC (under station). This is the preferred way to disconnect a client so if the previous way doesn't work, try disconnecting each client manually and individually using the -c parameter. But wait! Beore we run this command, we need to monitor the network's traffic remember? To do this, type the command </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>"airodump-ng -w fileName -c 3 --bssid &lt;BSSID&gt; wlan0mon" Here, we use -w to name our file in which the handshake will be captured, -c to specify the channel in which the handshake will occur (the channel in which the router exists) and after the MAC of the router we show which interface we want to use.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":223,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-13-50-58.png" alt="" class="wp-image-223"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now, leave this terminal open and open another one, in which you will enter the deauth command which should look like this:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":226,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-13-51-44.png" alt="" class="wp-image-226"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>When you see WPS handshake: AA:BB:CC:DD:EE:FF, you can ctrl +c both the windows and the output will be saved.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":227,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-13-51-09.png" alt="" class="wp-image-227"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:image {"id":228,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-13-51-09-1.png" alt="" class="wp-image-228"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>To see all the traffic and the 4-way handshake we captured we will have to open it using wireshark, a tool which comes preinstalled with most kali versions. The command for this is wireshark fileName.cap. Now the wireshark window should open. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":229,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-13-53-33.png" alt="" class="wp-image-229"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Here you can write "eapol" in the "Apply a dispay filter" box to filter the 4 four-way handshake packets.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":230,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-13-53-54.png" alt="" class="wp-image-230"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Step 4: crack the password with hashcat (visit my post about hashcat o understand more)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We can convert the cap file in a recognised by hashcat format so we can decrypt the hashed WPA password. There are many, many ways to do it (The best ones are using the GPU but you will need a really good one) and I will help by posting some hashcat useful commands.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>hashcat.exe -m 22000 hash.hc22000 -a 3 --session TryingToCrackWithNumbers --increment --increment-min 8 --increment-max 20 ?d?d?d?d?d?d?d?d?d?d?d?d?d?d?d?d?d?d</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>hashcat.exe -m 22000 10-digit-letters-wpa2.hc22000 -1 ?d?l?u -a 3 --session tryingToCrackWithNumbersLetters --increment --increment-min 8 --increment-max 12 ?1?1?1?1?1?1?1?1?1?1?1?1</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>To know what you're doing you should follow a hashcat tutorial. I will probably post one myself in the future. This needs a different post because it has many options and methods.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>YEYYY! We did it! We used the proper (theoretical) way to crack a WPA/WPA2 password! If you notice any mistakes in the post don't hesitate to write a comment and correct me. :) </p>
+<p><!-- /wp:paragraph --><br />
+</body></html></p>

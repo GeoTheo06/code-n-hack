@@ -1,0 +1,200 @@
+---
+layout: post
+title: Download And Install Kali linux on Windows 10/11 Using VirtualBox
+date: 2022-03-15 15:31:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Kali Linux
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: "#post_title"
+  _aioseo_description: "#post_content"
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+  _wp_old_slug: hello-world
+  _wpdiscuz_statistics: a:1:{s:7:"reacted";i:0;}
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/ethical-hacking/kali-linux/download-and-install-kali-linux-on-windows-10-11-using-virtualbox/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<!-- wp:paragraph {"align":"left"} --><html><body></p>
+<p class="has-text-align-left">In my opinion Linux is the most powerful OS. Though, there are so many distributions to choose from. My personal favorites are Ubuntu and Kali. As we are going to be working with Kali Linux in the next posts, I will first demonstrate the process of installing Kali Linux in a virtual machine.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Note that I am not responsible for any damage you cause on your Device. If you follow the instructions carefully you should be fine. You can also install kali using an easy method: <a href="https://dev-code-n-hack.pantheonsite.io/download-and-install-kali-linux-on-windows-10-11-using-virtualbox-the-easy-method">Install Kali (the easy way)</a>.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>TIP: The most common reason your Virtual Box is crashing/lagging/unable to start/unable to shut down is because of bottlenecks. Make sure to let it have more cores and ram if your GPU is good and less cores and ram if your GPU is crappy</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"textAlign":"center","level":4} --></p>
+<h4 class="has-text-align-center">
+<strong>Step 1</strong>: Configuring Windows Settings</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>First of all, you need to make sure that your machine supports virtualization. Otherwise you will not be able to boot up the virtual machine. Secondly, if your device supports virtualization you can continue and should have virtualization enabled from bios. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"textAlign":"center","level":4} --></p>
+<h4 class="has-text-align-center">
+<strong>Step 2</strong>: installing the software</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The first thing you need is VirtualBox (<a href="https://www.virtualbox.org/wiki/Downloads">Downloads – Oracle VM VirtualBox</a>), the tool that we are going to use to install Kali.  Since, you are installing Kali on windows, under "<a href="https://www.virtualbox.org/wiki/VirtualBox">VirtualBox</a> 'version' platform packages" as soon as you click on Windows Hosts, the Download will start.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":20,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-15-183226-1.png" alt="" class="wp-image-20"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Once it is downloaded, open it and go through the setup.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>You will also need the guest addition (it is optional, though it will make your life 10x easier). This includes, Fullscreen, copy and paste between host and guest and much more! To download it, simply click on <a href="https://download.virtualbox.org/virtualbox/6.1.32/Oracle_VM_VirtualBox_Extension_Pack-6.1.32.vbox-extpack" title="VirtualBox Extension Pack">VirtualBox Extension Pack</a>. Open it and install it.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Once you are done installing VirtualBox, you will need the iso image of kali Linux "<a href="https://www.kali.org/get-kali/#kali-platforms">Get Kali Linux</a>". To download it, select "Live Boot",</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":22,"width":781,"height":356,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-15-184328-1-1024x467.png" alt="" class="wp-image-22" width="781" height="356"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>and then select the latest version of kali, for me right now, it is 2022.1.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":23,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-15-184731.png" alt="" class="wp-image-23"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>You can store the iso wherever you want, it doesn't matter because when the setup is done you won't need it.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"textAlign":"center","level":4} --></p>
+<h4 class="has-text-align-center">
+<strong>Step 3:</strong> Setting Up Kali</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>On Virtual Box, press "new", and input the same settings as me:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":26,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-15-185430.png" alt="" class="wp-image-26"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Note: You should select 32-bit if your system is 32-bit.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>click next and select the ram you want your virtual machine to have. I will select 4096 because i think its enough for Linux. Next, click create Virtual Disk now and select VDI. Click next, select dynamically allocated (preferably). Click next, and now you have to select the location in which the virtual machine will get installed and the amount of size you want your virtual machine to have. I set it to 50 GB though the minimum is 20 GB. Your Virtual Machine is almost ready!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"textAlign":"center","level":4} --></p>
+<h4 class="has-text-align-center">
+<strong>Step 4</strong>: Configuring Kali's Settings</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Settings Time! Select "Settings" (located next to "New"). In General Settings, under advanced, select bidirectional on both options:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":27,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-15-193712.png" alt="" class="wp-image-27"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>In the system tab, under "Processor" choose your preferred number of CPUs you would like your kali to use (I have set it to 4). Note here, that the ram, processor and video card memory you set, are only used while running the virtual machine. As a newbie, I was worried they were used even if I didn't start the virtual machine😅. Anyway, in the display tab go to video memory and set this setting to max. In the storage section, click on "Empty" and after you select the blue disk</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":31,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-16-100714-1.png" alt="" class="wp-image-31"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>click on "choose a disk file" and browse to the location of your iso.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"textAlign":"center","level":4} --></p>
+<h4 class="has-text-align-center">
+<strong>Step </strong>5: Installing Kali Linux</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now, it is finally time to boot up your new OS! On VirtualBox, select start and Kali will boot.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":35,"width":907,"height":487,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-16-103232-1024x551.png" alt="" class="wp-image-35" width="907" height="487"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>In case you get stuck on the boot screen, try installing an older version of VirtualBox. 5.2 is the version that worked for me.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now, you will start installing Kali. To do that, select "Start Installer" from the menu that shows up when you start Kali. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":36,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-16-103826.png" alt="" class="wp-image-36"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now before we start, I have devided the installation into 15 steps. Depending on what iso you downloaded, the steps will be a bit different (some settings on my iso will not exist on your installation so if they do not, just skip them, and if there are some steps in your installation that are not on mine, search them up).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>1.</strong> Here, click your language, though I prefer that you select English so that you can go through the installer without problems. Click continue and </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>2.</strong> select your country. Click continue. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>3.</strong> Select American English as keyboard layout, though, if you want you can also select any layout you want. Click continue and wait for it to install  some drivers. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>4.</strong> Next, choose a Hostname, (I will leave it "kali") it can be anything and click continue. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>5. </strong>Now, choose your username (you will have to remember it so store it in a txt on windows) click continue. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>6.</strong> choose a password and store as well on the txt or anywhere else you want. Click continue and </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>7. </strong>configure the clock based on where you live. Click continue, and now comes the most important part. From the screen that appears, select "guided - use entire disk":</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":37,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-16-105211.png" alt="" class="wp-image-37"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>click continue and </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>8.</strong> it will show you only one option as a disk, so select it and click continue. On the next window, choose the first option: "All files in one partition" though note here, that when playing with kali, some errors will occur, and when you search these errors in the internet, some people will give solutions that have files under a specific location like /tmp. So, after you learn how to navigate (it will take a month probably), I suggest you to run the installation again to select the third option from this window "seperate /home, /var, /tmp locations". </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>9.</strong> Click continue and on the next window, everything is configured properly so just click "Finish partitioning and write changes to disk" and continue. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>10.</strong> On the next window, it will ask us whether we want to write the changes to the disk, and because we want, you will select "yes" and continue. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>11.</strong> After it finishes writing the changes to the disk, it will ask you for a package manager and if you don't have one or don't even know what it is, leave it black and click continue. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>12.</strong> Now, you need to select your desktop environment and tools. I will leave the desktop to xfce because this is what suits me. If you want to see how the desktops are, search for xfce vs GNOME etc. Anyway, just copy my settings, or if you are experienced, select what you want:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":38,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-16-110328.png" alt="" class="wp-image-38"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>13.</strong> When you get to "install  the GRUB loader on a hard disk" click yes and then continue. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>14.</strong> Then select the second option: /dev/sda and click continue. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>15.</strong> You are finally done! The installation is finishedand you are ready to see for the first (probably) time Kali Linux! Click continue and kali will restart, this time leading you to the kali desktop. Input your username and password from the txt and you are good to go!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>On the next posts we will learn some of the most powerful tools of Kali Linux for penetration testing.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>In case you get stuck in any of the steps, feel free to leave a comment and I will try to help you as much as I can. If I can't, there are many people better than me who can help you with your problem! 😊</p>
+<p><!-- /wp:paragraph --><br />
+</body></html></p>

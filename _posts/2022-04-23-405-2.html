@@ -1,0 +1,141 @@
+---
+layout: post
+title: Git Notes
+date: 2022-04-23 12:02:06.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Programming Notes
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: ''
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+  _wp_old_date: '2023-08-17'
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/programming-notes/405-2/"
+---
+<p><!DOCTYPE html><br />
+<!-- wp:html --><html lang="en"><br />
+<head><br />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><br />
+    <meta charset="UTF-8"><br />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><br />
+    <title>Git Notes</title></p>
+<style>
+        code {<br />
+            font-family: 'Fira Code', monospace;<br />
+        }<br />
+    </style>
+<p></head><br />
+<body></p>
+<h2>Git Basics</h2>
+<p>The term <strong>"origin"</strong> refers to a remote repository, while <strong>"master"</strong> signifies a local branch.</p>
+<p><br></p>
+<h3>Quickly Uploading a Folder to a Repository</h3>
+<p>To quickly upload a folder to a repository, follow these steps:</p>
+<ol>
+<li>Create the repository on GitHub.</li>
+<li>Execute the following commands:</li>
+</ol>
+<pre><code>
+cd &lt;folder_location&gt;
+git init
+git add .
+git commit -m “Descriptive commit message”
+git remote add origin https://github.com/USERNAME/REPOSITORY.git
+git push -u origin master
+</code></pre>
+<p><br></p>
+<h3>Commit Message Guidelines</h3>
+<p>When crafting commit messages, ensure you include:</p>
+<ol>
+<li>What was changed.</li>
+<li>The reason for the change.</li>
+<li>Any potential issues to be wary of in the future.</li>
+</ol>
+<p><br></p>
+<h3>Common Git Commands</h3>
+<ul>
+<li>
+<code>git init</code>: Initializes a new Git repository in the current directory.</li>
+<li>
+<code>git clone [repository URL] [directory to clone to]</code>: Clones a remote repository to the local machine.</li>
+<li>
+<code>git add [file/directory name]</code>: Adds files or directories to the staging area.</li>
+</ul>
+<p><br></p>
+<h3>Working with Large Files (LFS)</h3>
+<p>If you need to upload a file larger than 100 MB, utilize Git LFS:</p>
+<ol>
+<li>Track the large file(s) with the command: <code>git lfs track "file.extension"</code> or <code>git lfs track "*.extension"</code> for multiple files.</li>
+<li>A <code>.gitattributes</code> file will be created. Ensure you commit this file: <code>git add .gitattributes</code>
+</li>
+<li>Commit the large file(s) normally: <code>git add file.extension</code> and <code>git commit -m "commit message"</code>
+</li>
+<li>Push the changes to your repository: <code>git push origin main</code>.</li>
+</ol>
+<p><br></p>
+<h3>Cloning a Specific Commit</h3>
+<p>If you aim to clone a repository from a particular commit, use the following methods:</p>
+<pre><code>
+git clone –branch commithash --single-branch git://github.com/user/repo.git old_version
+</code></pre>
+<p>Alternatively:</p>
+<pre><code>
+git clone git://github.com/user/repo.git old_version
+cd old_version
+git checkout commithash
+</code></pre>
+<p><br></p>
+<h3>Additional Git Commands</h3>
+<ul>
+<li>
+<code>git status</code>: Displays the status of the repository, indicating modified files and changes in the staging area.</li>
+<li>
+<code>git log -p</code>: Shows the commit history with differences in each commit. The <code>-n</code> parameter limits the number of commits displayed.</li>
+<li>
+<code>git diff [file/directory name]</code>: Illustrates the disparities between the working directory and the repository.</li>
+<li>
+<code>git branch -a</code>: Lists all branches, including remote branches, with the current branch highlighted. </li>
+<li>
+<code>git checkout [branch/commit name]</code>: Switches to a different branch or commit.</li>
+<li>
+<code>git merge [branch name]</code>: Merges changes from one branch into another.</li>
+<li>
+<code>git pull [remote repository name] [branch name]</code>: Retrieves changes from a remote repository and merges them into the current branch.</li>
+<li>
+<code>git push [remote repository name] [branch name]</code>: Sends changes to a remote repository.</li>
+<li>
+<code>git fetch [remote repository name] [branch name]</code>: Acquires changes from a remote repository without integrating them.</li>
+<li>
+<code>git remote -v</code>: Provides a list of remote repositories and their URLs, with the <code>-v</code> parameter showing detailed information.</li>
+<li>
+<code>git config --global user.name "Your Name"</code> and <code>git config --global user.email "email@example.com"</code>: Configures global Git settings, including setting user name and email.</li>
+</ul>
+<p><br></p>
+<h3>Rectifying Mistakes</h3>
+<ul>
+<li>
+<code>git revert [commit hash]</code>: Reverts a specific commit, creating a new one with reversed changes.</li>
+<li>
+<code>git reset --hard [commit hash]</code>: Resets the repository to a specified commit, discarding subsequent changes.</li>
+</ul>
+<p></body><br />
+</html><!-- /wp:html --></p>

@@ -1,0 +1,38 @@
+---
+layout: wp_template
+title: Blog Home
+date: 2023-08-28 16:37:31.000000000 +02:00
+type: wp_template
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  origin: theme
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/uncategorized/home/"
+excerpt: Displays the latest posts as either the site homepage or as the "Posts page"
+  as defined under reading settings. If it exists, the Front Page template overrides
+  this template when posts are shown on the homepage.
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<!-- wp:group {"align":"full","layout":{"type":"constrained"}} --><html><body></p>
+<div class="wp-block-group alignfull"><!-- wp:template-part {"slug":"header","theme":"twentytwentytwo-child","tagName":"header","align":"wide"} /--></div>
+<p><!-- /wp:group --></p>
+<p><!-- wp:block {"ref":570} /--></p>
+<p><!-- wp:query {"queryId":0,"query":{"perPage":100,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true},"tagName":"main","layout":{"contentSize":"1700px","type":"constrained"}} --><br />
+<main class="wp-block-query"><!-- wp:post-template {"align":"wide","layout":{"type":"grid","columnCount":3}} --><br />
+<!-- wp:post-title {"textAlign":"center","isLink":true,"linkTarget":"_blank"} /--></p>
+<p><!-- wp:post-excerpt {"textAlign":"left"} /--></p>
+<p><!-- wp:post-date {"textAlign":"center"} /--><br />
+<!-- /wp:post-template --></main><br />
+<!-- /wp:query --></p>
+<p><!-- wp:template-part {"slug":"footer","theme":"twentytwentytwo-child","tagName":"footer"} /--><br />
+</body></html></p>

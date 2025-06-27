@@ -1,0 +1,337 @@
+---
+layout: post
+title: Node JS
+date: 2022-10-21 11:46:43.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Javascript
+- JS Frameworks
+- Programming Notes
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: ''
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+  _wp_old_date: '2023-08-24'
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/programming-notes/node-js/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<html><br />
+<head><br />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></p>
+<style>
+        pre {<br />
+            font-family: 'Fira', monospace;<br />
+        }<br />
+        code {<br />
+            font-family: 'Fira', monospace;<br />
+        }<br />
+    </style>
+<p></head><br />
+<body></p>
+<h1>Creating a Node.js Application</h1>
+<p>To create a Node.js application, follow the steps below:</p>
+<ol>
+<li>Initialize an npm project: <code>npm init -y</code>
+</li>
+<li>Create a JavaScript file within the project directory.</li>
+<li>Run the file using the command: <code>node &lt;filename&gt;</code>
+</li>
+</ol>
+<p>For testing requests, Postman can be used.</p>
+<h2>Method Parameters</h2>
+<p>It is essential to understand the parameters of a method, such as <code>fs.readFile</code>. As you type the parameters, a pane will appear displaying examples and information about the current parameter (highlighted in blue text).</p>
+<h2>Accessing Functions and Classes from Different Files</h2>
+<pre style="position: relative;"><code>/* person.js contents */
+const person = {
+    name: 'Gio Teo',
+    age: 16
+}
+module.exports = person;
+
+/* index.js contents */
+const person = require('./person');
+console.log(person);
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h2>Working with Folders, Locations, and Files</h2>
+<pre style="position: relative;"><code>/* Get the location of the folder */
+console.log(__dirname); 
+
+/* Get the full name of the JS script location */
+console.log(__filename);
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>Path Module</h3>
+<p>The Path module provides information about the project's location. Here's how to utilize it:</p>
+<pre style="position: relative;"><code>const path = require("path");
+
+/* Base file name */
+console.log(path.basename(__filename)); // index.js
+
+/* Directory name */
+console.log(path.dirname(__filename)); // C:\\GEO\\Projects\\JS Projects\\nodejs tutorial
+
+/* File extension */
+console.log(path.extname(__filename)); // .js
+
+/* Path object (with many useful info) */
+console.log(path.parse(__filename)); 
+
+/* Concatenate paths */
+console.log(path.join(__dirname, 'test', 'anotherFolder', 'hello.html')); 
+// C:\\GEO\\Projects\\JS Projects\\nodejs tutorial\\test\\anotherFolder\\hello.html
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>File System (FS) Module</h3>
+<p>Below are examples of common operations with the FS module:</p>
+<pre style="position: relative;"><code>const fs = require('fs');
+const newpath = path.join(__dirname, 'newFolder');
+
+/* Create new directory */
+fs.mkdir(newpath, {}, (err) =&gt; {
+    if (err) console.log(err);
+});
+
+/* Create new file and write in it */
+const file_path = path.join(newpath, 'test.txt');
+fs.writeFile(file_path, 'some text', (err) =&gt; {
+    if (err) console.log(err);
+});
+
+/* Write in an already created file */
+fs.appendFile(file_path, '\n another text', (err) =&gt; {
+    if (err) console.log(err);
+});
+
+/* Read data from a file */
+fs.readFile(file_path, 'utf-8', (err, data) =&gt; {
+    console.log(data);
+});
+
+/* Rename file/folder name */
+const new_file_path = path.join(newpath, 'new name.txt');
+fs.rename(file_path, new_file_path, (err) =&gt; {
+    if (err) throw err;
+    console.log('Rename complete!');
+});
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>Operating System (OS) Module</h3>
+<p>The OS module offers various functionalities related to the operating system:</p>
+<pre style="position: relative;"><code>const os = require('os');
+
+/* Platform */
+console.log(os.platform()); // win32
+
+/* CPU architecture */
+console.log(os.arch()); // x64
+
+/* CPU core info */
+console.log(os.cpus()); // info about every core
+
+/* Free memory in bytes */
+console.log(os.freemem()); // 8476024832
+
+/* Total memory in bytes */
+console.log(os.totalmem()); // 17104560128
+
+/* Home directory */
+console.log(os.homedir()); // C:\\Users\\THEOD
+
+/* Uptime in seconds */
+console.log(os.uptime()); // 63986
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h1>Events and Listeners</h1>
+<p>An event listener is a function that waits for a specific event to occur and then executes a callback function when that event takes place.</p>
+<h2>Creating and Using Event Emitters</h2>
+<ol>
+<li>
+<strong>Initializing the EventEmitter class:</strong></p>
+<pre style="position: relative;"><code>const EventEmitter = require('events');
+class MyEmitter extends EventEmitter {}
+const myEmitter = new MyEmitter();</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+</li>
+<li>
+<strong>Attaching a listener to an event:</strong></p>
+<pre style="position: relative;"><code>myEmitter.on('event', () =&gt; {
+console.log('an event occurred!');
+});</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+</li>
+<li>
+<strong>Emitting an event:</strong></p>
+<pre style="position: relative;"><code>myEmitter.emit('event');</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+</li>
+<li>
+<strong>Passing arguments to the listener:</strong></p>
+<pre style="position: relative;"><code>myEmitter.emit('event', arg1, arg2, ...);</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+</li>
+</ol>
+<h3>Examples</h3>
+<p>Here are practical examples demonstrating how to create and use event emitters:</p>
+<pre style="position: relative;"><code>const EventEmitter = require('events');
+class MyEmitter extends EventEmitter {}
+const myEmitter = new MyEmitter();
+myEmitter.on('event', () =&gt; {
+    console.log('an event occurred!');
+});
+myEmitter.emit('event');
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<pre style="position: relative;"><code>const EventEmitter = require('events');
+class MyEmitter extends EventEmitter {}
+const myEmitter = new MyEmitter();
+myEmitter.on('request', (request) =&gt; {
+    console.log(`received request: ${request}`);
+});
+myEmitter.emit('request', 'GET /index.html');</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h1>HTTP Module</h1>
+<h2>HTTP Request and Response</h2>
+<p>The HTTP module deals with HTTP requests and responses, represented by <code>req</code> and <code>res</code> respectively:</p>
+<ul>
+<li>
+<strong>REQUEST (req):</strong> Contains information about the client's request.</li>
+<li>
+<strong>RESPONSE (res):</strong> Contains information about the server's response.</li>
+</ul>
+<h3>Request and Response Syntax</h3>
+<p>Both request and response messages consist of a status line, header, empty line, and an optional body. HTTP methods for requests include GET, POST, HEAD, PUT, DELETE, PATCH, TRACE, OPTIONS, and CONNECT. Response status codes are grouped as follows:</p>
+<ul>
+<li>
+<strong>1xx:</strong> Informational</li>
+<li>
+<strong>2xx:</strong> Successful</li>
+<li>
+<strong>3xx:</strong> Redirection</li>
+<li>
+<strong>4xx:</strong> Client error</li>
+<li>
+<strong>5xx:</strong> Server error</li>
+</ul>
+<h3>Creating an HTTP Server</h3>
+<p>An example of initializing an HTTP server and listening on port 3000:</p>
+<pre style="position: relative;"><code>const http = require('http');
+const server = http.createServer((request, response) =&gt; {
+    response.writeHead(200, { 'Content-Type': 'text/plain' });
+    response.write('Hello World\\n');
+    response.end();
+});
+server.listen(3000, () =&gt; {
+    console.log('Server listening on port 3000');
+});</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h1>Practical Examples of Implementing HTTP</h1>
+<h2>Example 1: Handling Different URLs</h2>
+<p>This example demonstrates how to handle different URLs and respond with HTML files or JSON content:</p>
+<pre style="position: relative;"><code>const http = require('http');
+const path = require('path');
+const fs = require('fs');
+
+const server = http.createServer((req, res) =&gt; {
+    var about_html_path = path.join(__dirname, 'public', 'about.html');
+    var homepage_html_path = path.join(__dirname, 'public', 'homepage.html');
+
+    if (req.url === '/') {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        fs.readFile(homepage_html_path, (err, content) =&gt; {
+            if (err) throw err;
+            res.write(content);
+            res.end();
+        });
+    } else if (req.url === '/about') {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        fs.readFile(about_html_path, (err, content) =&gt; {
+            if (err) throw err;
+            res.write(content);
+            res.end();
+        });
+    }
+
+    if (req.url.includes('/sub/domains/go/br/r/r/r/r/r/r/ahhh/jasonnn/i/am/coming')) {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        const users = [
+            { name: 'bob smith', age: 40 },
+            { name: 'John Doe', age: 30 },
+        ];
+        res.write(JSON.stringify(users));
+        res.end();
+    }
+});
+
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () =&gt; console.log(`server running on port ${PORT}`));
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h2>Example 2: Most Practical Way to Implement HTTP</h2>
+<p>This example demonstrates how to handle various file types and respond appropriately based on the URL and file extension:</p>
+<pre style="position: relative;"><code>const http = require('http');
+const path = require('path');
+const fs = require('fs');
+
+const server = http.createServer((req, res) =&gt; {
+    var filePath = path.join(__dirname, 'public', req.url === '/' ? 'homepage.html' : req.url);
+    var extension_name = path.extname(filePath);
+    var contentType = 'text/html';
+
+    switch (extension_name) {
+        case '.html': contentType = 'text/html'; break;
+        case '.json': contentType = 'application/JSON'; break;
+        case '.css': contentType = 'text/css'; break;
+        case '.js': contentType = 'text/javascript'; break;
+        case '.png': contentType = 'image/png'; break;
+        case '.jpg': contentType = 'image/jpg'; break;
+    }
+
+    fs.readFile(filePath, (err, content) =&gt; {
+        if (err) {
+            if (err.code == 'ENOENT') {
+                fs.readFile(path.join(__dirname, 'public', '404.html'), (err, content) =&gt; {
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.write(content, 'utf8');
+                    res.end();
+                });
+            } else {
+                fs.readFile(path.join(__dirname, 'public', '500.html'), (err, content) =&gt; {
+                    res.writeHead(500, { 'Content-Type': 'text/html' });
+                    res.write(content);
+                    res.end();
+                });
+            }
+        } else {
+            res.writeHead(200, { 'Content-Type': contentType });
+            res.write(content);
+            res.end();
+        }
+    });
+});
+
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () =&gt; console.log(`server running on port ${PORT}`));
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>This code snippet ensures that the server responds with the appropriate content type and handles different file extensions and error pages.</body><br />
+</html></p>

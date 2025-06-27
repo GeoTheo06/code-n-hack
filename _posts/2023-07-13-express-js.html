@@ -1,0 +1,181 @@
+---
+layout: post
+title: Express JS
+date: 2023-07-13 11:10:35.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Javascript
+- JS Frameworks
+- Programming Notes
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: ''
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+  _wp_old_date: '2023-08-20'
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/programming-notes/express-js/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<html><br />
+<head><br />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></p>
+<style>
+        pre {<br />
+            background-color: #f5f5f5;<br />
+            padding: 10px;<br />
+            border-radius: 5px;<br />
+        }<br />
+        code {<br />
+            font-family: 'Fira', monospace;<br />
+        }<br />
+    </style>
+<p></head><br />
+<body></p>
+<h2>Initializing an Express App</h2>
+<p>To create an Express application, follow these steps:</p>
+<ol>
+<li>Initialize npm by executing the command: <code>npm init -y</code>
+</li>
+<li>Install Express using the command: <code>npm install express</code>
+</li>
+<li>Create a JavaScript file and execute it using: <code>node &lt;jsFile&gt;</code>
+</li>
+<li>(Optional) Install nodemon as a development dependency: <code>npm install -D nodemon</code>
+</li>
+<li>Run the application using: <code>nodemon &lt;jsFile&gt;</code>
+</li>
+</ol>
+<p>For testing requests, consider using Postman.</p>
+<h2>HTTP Request and Response</h2>
+<p><strong>REQUEST (req):</strong> Represents the HTTP request sent by the client. It contains details about the client's request, such as the HTTP method, requested resource path, query string parameters, and request body.</p>
+<p><strong>RESPONSE (res):</strong> Represents the HTTP response sent by the server to the client. It contains details about the response, such as the status code, response body, and headers.</p>
+<h3>Request Message Syntax</h3>
+<pre style="position: relative;"><code>
+1. Request line
+2. Header (with host information)
+3. Empty line
+4. Optional body (additional information if required)
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>HTTP Methods</h3>
+<ul>
+<li>GET: Request information from the server.</li>
+<li>POST: Send information to the server.</li>
+<li>HEAD: Request the header of the response.</li>
+<li>PUT: Modify data on the server.</li>
+<li>DELETE: Remove data from the server.</li>
+<li>PATCH: Apply partial modifications to a resource.</li>
+<li>TRACE: Provides a debugging mechanism.</li>
+<li>OPTIONS: Request permitted communication options for a given URL.</li>
+<li>CONNECT: Start two-way communication between client and server.</li>
+</ul>
+<h3>Response Message Syntax</h3>
+<pre style="position: relative;"><code>
+1. Status line
+2. Header (with server information)
+3. Empty line
+4. Optional body (additional information if required)
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>Status Codes</h3>
+<ul>
+<li>1xx: Informational</li>
+<li>2xx: Successful</li>
+<li>3xx: Redirection</li>
+<li>4xx: Client error</li>
+<li>5xx: Server error</li>
+</ul>
+<h3>Examples of Status Codes</h3>
+<ul>
+<li>200: OK, SUCCESS</li>
+<li>301: MOVED PERMANENTLY</li>
+<li>400: BAD REQUEST</li>
+<li>404: NOT FOUND</li>
+<li>500: INTERNAL SERVER ERROR</li>
+<li>502: BAD GATEWAY</li>
+</ul>
+<h2>Basic Server Syntax</h2>
+<pre style="position: relative;"><code>
+const express = require('express');
+const app = express();
+
+// Define route handlers
+app.get('/helloworldpage', function (req, res) {
+    res.send('&lt;h1&gt;Hello World&lt;/h1&gt;');
+});
+
+app.get('/anotherpage', function (req, res) {
+    res.send('&lt;h1&gt;This is another page.&lt;/h1&gt;');
+});
+
+// Specify the listening port
+const PORT = process.env.PORT || 6969;
+app.listen(PORT, () =&gt; console.log(`Server started on port: ${PORT}`));
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>In the example above, the route handler responds to a GET request to the path <code>/helloworldpage</code>. It sends a response to the client with the message "Hello, World!".</p>
+<h3>Serving HTML Files</h3>
+<p>Instead of sending raw HTML strings, it's more practical to serve HTML files directly. This can be achieved using the <code>sendFile</code> method.</p>
+<pre style="position: relative;"><code>
+app.get('/', (req, res) =&gt; {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>Serving Static Files</h3>
+<p>For serving multiple static files, such as stylesheets, scripts, and images, use the <code>express.static</code> middleware.</p>
+<pre style="position: relative;"><code>
+app.use(express.static(path.join(__dirname, 'public')));
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>Sending JSON Data</h3>
+<p>To send JSON data, create JavaScript objects and send them using the <code>json</code> method. Express will handle the serialization.</p>
+<pre style="position: relative;"><code>
+const members = [
+    // ... (members data)
+];
+
+app.get('/api/members', (req, res) =&gt; {
+    res.json(members);
+});
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>Fetching a Single Member</h3>
+<p>To fetch a specific member based on their ID, use the following approach:</p>
+<pre style="position: relative;"><code>
+app.get('/api/members/:idNum', (req, res) =&gt; {
+    // ... (fetching logic)
+});
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>Middleware Functions</h3>
+<p>Middleware functions are executed before the final request handler. They can perform tasks such as parsing request data, authentication, and modifying the response.</p>
+<pre style="position: relative;"><code>
+const logger = (req, res, next) =&gt; {
+    // ... (logging logic)
+    next();
+};
+
+app.use(logger);
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p></body><br />
+</html></p>

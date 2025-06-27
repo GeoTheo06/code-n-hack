@@ -1,0 +1,160 @@
+---
+layout: post
+title: Steganography on Kali
+date: 2022-03-17 17:16:25.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Kali Linux
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: "#post_title"
+  _aioseo_description: "#post_content"
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/ethical-hacking/kali-linux/steganography-on-kali/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<!-- wp:paragraph --><html><body></p>
+<p>Steganography is hiding messages which you only want to be accessed by specific people in public content like videos, pictures, TXTs etc. Another case in which steganography is useful is if you want to communicate with someone but don't want anyone else to know that you are.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Kali has various tools for steganography. In this post we are going to see 2 Kali Tools and then we will see how to do it on windows as well using cmd.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Notes:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>If you are using one of the first two methods make sure the sender and the receiver are using the same tool.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The First 2 methods only work for images, while using the third method (cmd) you can hide text in any file (i think).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>First Method: Using Kali's Steghide tool</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>This tool is not the best but it is quick. Fire up the terminal, write "sudo -i" and input your password, this command just gave you access to every command that needs security privileges. This prevents us from writing before every command sudo. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":57,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-17-130641.png" alt="" class="wp-image-57"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Next, you need to install steghide, so write on your terminal "apt install steghide", type "y" when prompted and steghide is installed. Now we need the message and the image. Download any jpg image (it works with jpg only) and create a txt which will have your message. Then, transfer those two files in the Desktop.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>These are my files:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":61,"width":834,"height":458,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-17-132714-1024x563.png" alt="" class="wp-image-61" width="834" height="458"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Time for steganography!!! Now, you can see all the steghide commands using "steghide --help". </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":58,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-17-130641-1.png" alt="" class="wp-image-58"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>The two options we are going to need from this list are "-cf" to determine  the file with the message and "-ef" to determine the jpg image. "embed" to embed and "extract" to extract lol... So, to embed the text in the image go to the Desktop "cd /home/geo/Desktop" and then we need to write "steghide embed -cf 'image'.jpg -ef 'messageFile'.txt". Write your passphrase which you have to note somewhere and your text is embedded in the image!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":62,"width":1032,"height":268,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full is-resized"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-17-133051.png" alt="" class="wp-image-62" width="1032" height="268"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>See here, the code of the jpeg before the embed and after it using mousepad (you can also use notepad on windows):</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":65,"width":872,"height":353,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-17-140348-1024x415.png" alt="" class="wp-image-65" width="872" height="353"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>You can't tell the difference with code because it is encoded, though you can see they are almost different pictures while if you open them, regularly, you will see a mountain in both of them.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Anyway. To extract the message, delete the text file and type "steghide extract -sf 'yourImage'.jpg"</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":67,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-17-141547.png" alt="" class="wp-image-67"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now it will create the same text file you used in the embedding process with the same message. This is stupid, but imagine if another person did the extraction and saw the message using the passphrase you sent him!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Second Method: Using Kali's stegosuite</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>1. Write "sudo -i" to gain administrator privileges.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>2. download and install stegosuite by typing "apt install stegosuite" and press "y" when prompted</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>3. Now that you downloaded stegosuite type "stegosuite" and stegosuite's GUI will open:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":69,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-17-162256.png" alt="" class="wp-image-69"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>4. Press on "File&gt;open..." and browse to the location of the image you want to hide the message in. OR you can just drag and drop the image in the GUI.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Note: Stegosuite supports png and some other formats. Not only jpg like steghide.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>5. Now that you have selected an image, just type your message where it says "Enter secret message" and any password where it says "Enter a password".</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":70,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-17-163104.png" alt="" class="wp-image-70"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p> 6. press embed and it will create a duplicate image next to the normal image but with the message inside.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>To test that it is working, try extracting it. Close stegosuite and run the command again. Now select the image with the embedded text and drag and drop it into the GUI or click File&gt;open... and select the image with the embedded text. Type the password and choose extract. The message will be shown in the "Enter secret message" box.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Third Method: Hiding text in any media using Command Prompt.</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>If you are using windows and are bored of booting up kali or want to hide text in any file (not just image) you should use cmd!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>open cmd by searching for it in the search bar. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now, write: copy /b "image.png" + "message.txt" embedded-image.png</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Let's break it up. You tell the terminal: copy my image (image.png) and my message (message.txt) and paste it into the new file i will tell you (embedded-image.anything). The new file will be created in the location you set it.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":72,"width":729,"height":378,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full is-resized"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-17-172420.png" alt="" class="wp-image-72" width="729" height="378"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>What it does is, it will put the message inside the pictures code. If you open the image with notepad and go to the last line you will see your message:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":75,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large"><img src="{{site.baseurl}}/assets/images/2022/03/Screenshot-2022-03-17-183519-1-1024x753.png" alt="" class="wp-image-75"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>And that is how the receiver will extract your message. However I believe that this is the worst method because anyone can see the message by simply opening the image with notepad. So I suggest that you use one of the first 2 methods.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>If you have any questions just comment and I'll answer them as soon as I can.</p>
+<p><!-- /wp:paragraph --><br />
+</body></html></p>

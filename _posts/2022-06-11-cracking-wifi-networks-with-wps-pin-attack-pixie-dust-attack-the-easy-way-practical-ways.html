@@ -1,0 +1,291 @@
+---
+layout: post
+title: Cracking WiFi networks with WPS Pin attack - Pixie Dust attack the easy way.
+  (Practical Ways)
+date: 2022-06-11 09:50:32.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Ethical Hacking
+- Kali Linux
+- WiFi Attacks
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: "#post_title"
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/ethical-hacking/kali-linux/cracking-wifi-networks-with-wps-pin-attack-pixie-dust-attack-the-easy-way-practical-ways/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<!-- wp:paragraph --><html><body></p>
+<p><strong>IMPORTANT: This post and any other post I upload is written for informational and educational purposes only! DO NOT try this on any network you do not have permission to ethically test.</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Hello! In this post I am going to cover some ways with which wpa2 - wps cracking worked for me! Today, we will see how it is done (the practical way) using 3 apps that do this automatically for us and in a future post we will do it manually to understand what's going on behind the scenes.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>This post and any other post I upload is written for informational purposes only! DO NOT try this on any network you do not have permission to ethically test.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>To start, you will need a kali Linux machine running either natively or in a virtual machine (It doesn't matter). If you don't know how you can follow the steps I explained in previous posts. You can use the <a href="https://dev-code-n-hack.pantheonsite.io/download-and-install-kali-linux-on-windows-10-11-using-virtualbox-the-easy-method/">easy method</a> (preinstalled) or the one you can <a href="https://dev-code-n-hack.pantheonsite.io/download-and-install-kali-linux-on-windows-10-11-using-virtualbox/">configure everything by yourself</a>. Also, you will need a Wi-Fi adapter supporting linux, packet injection and monitor mode (I am not sure if an integrated one will do) I suggest <a href="https://www.amazon.com/Alfa-AWUS036NHA-Wireless-USB-Adaptor/dp/B004Y6MIXS">ALFA AWUS036NHA</a> not only because you get a much higher range, but it supports monitor mode, packet injection and is made for kali as well. Doesn't work with windows 10 (You will need a driver) Works though perfectly with windows 7/8 (not sure)/11.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Before 2003 it was chaos, Wi-Fi was so vulnerable, everyone's DMs (if there where any back then) were leaking to everyone connected to the network. That's when WPA (Wi-Fi Protected Access) was developed. Though, WPA was not good enough so the next year they released the second version: WPA2. This was too perfect and it still is. The only problem is that they released WPS for the non-Tech people and devices hard to write letters on (like printers or something). WPS is an 8 digit number (what the) which is permanent to the router and written in the back of it. No matter if you change the password, WPS is still that same 8 digit number and most important: number-only passwords are the easier to crack.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We will see how to crack wpa2 networks with WPS pin attacks using two applications. I have tried many many ways and the ones that work always are the WPS pin crack attacks. The others don't work because if the router has a good wifi password, we would need decades to crack it. We might also see evil twin attack in the future (one of my favorites)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Note that the first way doesn't work on most routers, so I suggest that you start with the second way: pixie dust attack with airgeddon. Also, here are some adapters, airgeddon recommends: <a href="https://github.com/v1s1t0r1sh3r3/airgeddon/wiki/Cards%20and%20Chipsets">Cards and Chipsets · v1s1t0r1sh3r3/airgeddon Wiki (github.com)</a></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>IMPORTANT: You may need to have the virtual machine on the same network as the windows machine. For example they both have to be on 192.168.1.0/24. to make that sure, go to the virtual machine's settings and in network tab, choose "bridged adapter" and select the name of your adapter. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph {"fontSize":"x-large"} --></p>
+<p class="has-x-large-font-size">1st Way: <strong>reaver</strong> (Didn't work for me)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Reaver is the most common tool to use and the first you will find if you search for WPS cracking. The problem is that it didn't work for me and it also might not work for youI suggest you jump straight into the second way (airgeddon).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>First of all, (Always before we start) gain sudo privileges by typing sudo bash or sudo -i. Then we need to install airgeddon, so write:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>apt install airgeddon</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Once it's installed we need to turn our adapter from managed mode to monitor mode. This will allow us to get information about the networks around us and it will help us with other stuff though we will not be able to use it for conecting until we turn it back to managed mode. To see the current state of our adapter write:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>iwconfig</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":175,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-22-16-32-1024x579.png" alt="" class="wp-image-175"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Using this command we saw that our wifi adapter's mode is currently to managed. To change it to monitor we will use a preinstalled kali tool named airmon-ng which comes with the aircrack-ng toolset:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>airmon-ng start </strong>&lt;interface&gt;</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Before we use this though, we need to kill any processes that interfere and one of them is most of the times the wpa_supplicant. To kill it we write:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>airmon-ng check kill</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":176,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-22-29-28.png" alt="" class="wp-image-176"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Then we can write</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>airmon-ng start </strong>&lt;interface&gt; (for me wlan0):</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":177,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-22-31-53-1024x523.png" alt="" class="wp-image-177"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now, to perform a WPS attack we need to check which networks in our area have the feature of wps (Rarely will you find a router without wps). To do this, we will use the wash command whose arguments are these:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p> <strong> </strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":179,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-11-10-18-22.png" alt="" class="wp-image-179"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>And we need the -i to specify the interface. So the command will look like this:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>wash <strong>-i wlan0mon</strong> (wlan0mon is for me. If it's different for you change it everywhere I put wlan0mon in the future).  </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":180,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-11-10-40-27.png" alt="" class="wp-image-180"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>In this list you can see the version of wps, in my case all networks have wps 2.0. Now, identify the name of the network YOU own, press  ctrl + c to stop the monitoring and note down the BSSID (BSSID is the MAC of the router). Do not try this on any other network you do not have permission for. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>As mentioned before, the tool we are going to use is reaver. Let's see reaver's arguments:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":181,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-11-10-52-30.png" alt="" class="wp-image-181"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>From these we are going to use the required: -i to specify our interface (mine is wlan0mon) and -b to secify the targeted network (our network). In addition, we use the -v command to display warnings (It isn't necessary). Now, note that this takes a great amount of time and to reduce it, we will use -S which uses small DH keys to improve crack speed. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Also, in case you have to shut down your computer and have to continue the attack the next day, you can save the session in a file and using the argument -s you can continue from where you left of. So, finally we have this command:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>reaver -i wlan0mon -b XX:XX:XX:XX:XX:XX -S -v</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>And the output should look like this:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":182,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-11-11-07-55.png" alt="" class="wp-image-182"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>You can also try different variations like -Z for pixie dust attack, but nothing worked for. Anyway, now you just need patience. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph {"fontSize":"large"} --></p>
+<p class="has-large-font-size">2nd Way: Airgeddon (Pixie Dust attack)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>WPS pin is an 8 digit password found under or behind the router and allows you to connect to a network in case you ever forget your password or if you need to connect an old device which only has numbers and therefore you can't use the ordinary password (like a printer or something). This is not good because with tools such as reaver you could crack this password within 4-5 hours. This sounds cool and all, but manufacturers have started to implement protection against such techniques and they are almost impossible now.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Pixie Dust Attack: What is unique about this attack is that you can crack this 8 digit pin using one single exchange of packets and not sending continuous packets with different pins each time as reaver does. The way this works, is to guess the way, our router sets random numbers. This is pretty easy because the techniques the routers use to generate the pin are very limited: 1. use a null to start the initial seed 2. They can use just the time stamp at the beginning of the WPS transaction. So by knowing the the random seed at the beginning we can guess the WPS setup in a second (in one single exchange).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Before we do anything, type sudo bash or sudo -i to gain administrator privileges </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>AND REMEMBER TO USE IT ONLY ON YOUR OWN NETWORK. You could get into real trouble if you use this or any other program on an unauthorized network.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now, Airgeddon comes preinstalled with some kali versions, however if you don't have it installed just type:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>git clone https://github.com/v1s1t0r1sh3r3/airgeddon</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>and after you install it, cd into it</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":184,"width":1023,"height":223,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-11-11-40-57-1024x224.png" alt="" class="wp-image-184" width="1023" height="223"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>and type</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>bash airgeddon.sh</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now it will ask to check for some required tools and there will be some you don't have. You don't need to download them manually as I did, you can just enter y when it asks whether you wan to download these tools.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Here, you have to select your adapter:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":185,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-11-11-51-36.png" alt="" class="wp-image-185"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>And airgeddon is set up!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":187,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-11-11-52-59-1.png" alt="" class="wp-image-187"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>If your adapter is in managed mode as well you have to select 2 to put it in monitor mode, if it is already, you can skip this step.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":189,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-11-11-58-31-1.png" alt="" class="wp-image-189"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now, from this list we select the WPS attacks menu, because we want to run a PIxie dust attack.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":191,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-11-12-03-51.png" alt="" class="wp-image-191"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Before we start, we have to select which network to attack (Select your own network - not someone else's). To do this select option number 4: "Explore for targets (monitor mode needed)".Here, once you press enter, it will start searching for networks, </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":193,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-11-12-05-56-1024x493.png" alt="" class="wp-image-193"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>when you identify yours, press ctrl + c to make it stop searching.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":194,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-11-12-06-02-1-1024x650.png" alt="" class="wp-image-194"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>From the list that appears, you should select your own network. The ones that are red are locked.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":190,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-11-11-59-48.png" alt="" class="wp-image-190"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>From this list select option 7 which is a pixie dust attack implemented by bully software.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Then, select 55 seconds timeout (30 is too small and 60 too big) and then select the path to save the pin (I accepted the default: /root/***********.txt)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":195,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-11-12-12-31.png" alt="" class="wp-image-195"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>When you press enter the attack should start. Note that it will not work if you are far from the network or if your adapter has a short range so have this in mind. In my case i could crack the pin in less than 10 seconds and find the password as well. Lets analyze it.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":197,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-11-12-20-53-1.png" alt="" class="wp-image-197"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>As we can see, it found the pin and then it kept trying it. It did this to acquire the password (However you don't need the password now, the pin will do) and it did. In some cases it might not be able to crack the password and in this case you have to follow these steps:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph {"fontSize":"large"} --></p>
+<p class="has-large-font-size">Step 2: acquire password if airgeddon hasn't already</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>You don't need the password to connect to the network, as the pin will do. Even if we change our password the pin will be the same and we will have acess to the network. In some cases airgeddon might not be able to crack the password and in this case you have to follow these steps:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Copy the pin to a terminal (You can't copy from the bully pixie dust attack window so you have to write it manually and copy it)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":198,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-10-19-06-35-1024x576.png" alt="" class="wp-image-198"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now, close the wps bully pixie dust attack and in the airgeddon windows press 6 to select the (reaver) Custom PIN association:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":202,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-11-12-45-36-1.png" alt="" class="wp-image-202"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>And after you select 55 seconds and the location you prefer to save your password, press enter and the attack will start and in about 30 seconds you will have the password as well!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>3d Way: Wifite</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Wifite is not recommended by me because you everything is done automatically, there are no errors. On the other hand, it works almost always because it deals with errors automatically and it tries the 4 best attack types. Let's see how it's used. 1. First type the command </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>wifite --wpa --kill</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>2. Simply wait for 5 minutes so it can identify the strongest networks and their information and press ctrl + c to stop the identifying process. The output should look like this:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":207,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-14-18-24-14.png" alt="" class="wp-image-207"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>3. Now select your network by entering the number of your network (for example mine is 1 - you can also select multiple targets like this: 1,2,3 - The 'db' means decibels and the  greater the number is , the greater is the signal from the router to your adapter) and the attacks should start. That's it: 1, 2, 3... </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>That's it! You've hacked your own network! Well Done! This was a warning to see how easy it is to crack networks with WPS enabled. If you can please disable the WPS feature of your router. Be careful and an explanatory post is coming!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --><br />
+</body></html></p>

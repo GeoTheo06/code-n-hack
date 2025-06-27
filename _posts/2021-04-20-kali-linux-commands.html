@@ -1,0 +1,193 @@
+---
+layout: post
+title: Kali Linux Commands
+date: 2021-04-20 18:28:12.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Ethical Hacking
+- Kali Linux
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: ''
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_old_date: '2023-08-27'
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/ethical-hacking/kali-linux/kali-linux-commands/"
+---
+<p><!DOCTYPE html><br />
+<!-- wp:html --><html><br />
+<head><br />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><br />
+    <title>Kali Linux Commands Notes</title></p>
+<style>
+        pre code {<br />
+            font-family: 'Fira', monospace;<br />
+        }<br />
+    </style>
+<p></head><br />
+<body></p>
+<h1>Kali Linux Commands Notes</h1>
+<h2>Common Commands</h2>
+<ul>
+<li>
+<pre><code>sudo bash</code></pre>
+<p>Grants superuser privileges for all subsequent commands, eliminating the need to prepend each command with <code>sudo</code>.</p>
+</li>
+<li>
+<pre><code>chmod +x &lt;filename.sh&gt;</code></pre>
+<p>Transforms a shell script into an executable file that can be executed in the kernel.</p>
+</li>
+<li>
+<pre><code>./&lt;filename&gt;</code></pre>
+<p>Executes an executable shell script.</p>
+</li>
+<li>
+<pre><code>pwd</code></pre>
+<p>Displays the current working directory.</p>
+</li>
+<li>
+<pre><code>ls</code></pre>
+<p>Lists the contents of the current directory. Pressing the tab key while typing a directory name provides suggestions.</p>
+</li>
+<li>
+<pre><code>cd &lt;directory&gt;</code></pre>
+<p>Changes the current working directory to the specified directory.</p>
+</li>
+<li>
+<pre><code>cd ..</code></pre>
+<p>Moves up one directory level from the current location.</p>
+</li>
+<li>
+<pre><code>mkdir &lt;directory&gt;</code></pre>
+<p>Creates a new directory.</p>
+</li>
+<li>
+<pre><code>ctrl + R</code></pre>
+<p>Enables search functionality for previously entered commands, similar to the <code>ctrl + f</code> function.</p>
+</li>
+<li>
+<pre><code>man &lt;command&gt;</code></pre>
+<p>Displays the manual page for a specific command, providing usage instructions.</p>
+</li>
+<li>
+<pre><code>shutdown</code></pre>
+<p>Shuts down the system.</p>
+</li>
+<li>
+<pre><code>mv &lt;file name&gt; &lt;directory path&gt;</code></pre>
+<p>Moves files from one directory to another.</p>
+</li>
+<li>
+<pre><code>rm &lt;file&gt;</code></pre>
+<p>Deletes a file.</p>
+</li>
+<li>
+<pre><code>rm -r &lt;directory&gt;</code></pre>
+<p>Deletes a directory and its contents.</p>
+</li>
+<li>
+<pre><code>clear</code></pre>
+<p>Clears the terminal screen of previous commands and output.</p>
+</li>
+<li>
+<pre><code>apt-get update</code></pre>
+<p>Updates the Kali Linux system.</p>
+</li>
+<li>
+<pre><code>apt install &lt;application name&gt;</code></pre>
+<p>Installs a new application.</p>
+</li>
+<li>
+<pre><code>apt --purge remove &lt;program&gt;</code></pre>
+<p>Uninstalls software. The <code>--purge</code> option also removes configuration files.</p>
+</li>
+<li>
+<pre><code>grep &lt;word&gt; &lt;file&gt;</code></pre>
+<p>Searches for a specific word in a given file and displays the lines where the word appears. This is useful for quickly locating information in large text files.</p>
+</li>
+</ul>
+<h2>Network Commands</h2>
+<ul>
+<li>
+<pre><code>ifconfig &lt;interface&gt; down</code></pre>
+<p>Temporarily disables a specified network interface. For example, <code>ifconfig eth0 down</code>.</p>
+</li>
+<li>
+<pre><code>ifconfig &lt;interface&gt; up</code></pre>
+<p>Re-enables a previously disabled network interface. For example, <code>ifconfig eth0 up</code>.</p>
+</li>
+<li>
+<pre><code>ifconfig</code></pre>
+<p>Displays information about network interfaces.</p>
+</li>
+<li>
+<pre><code>ip addr</code></pre>
+<p>Also provides information about network interfaces.</p>
+</li>
+<li>
+<pre><code>iwconfig</code></pre>
+<p>Displays information specifically for wireless networks.</p>
+</li>
+<li>
+<pre><code>ping</code></pre>
+<p>Verifies that a computer can communicate with another over the internet.</p>
+</li>
+<li>
+<pre><code>arp</code></pre>
+<p>Maps a MAC address to an IP address and vice versa.</p>
+</li>
+<li>
+<pre><code>netstat</code></pre>
+<p>Displays statistics about network activities and informs the user about running TCP and UDP ports.</p>
+</li>
+<li>
+<pre><code>route</code></pre>
+<p>Displays the routing table of the network, which is useful for understanding how data packets will be forwarded between different subnets.</p>
+</li>
+</ul>
+<h2>Network Attacks</h2>
+<ul>
+<li>
+<pre><code>airmon-ng check kill</code></pre>
+<p>Terminates processes that interfere with enabling monitor mode on your network adapter. This is often necessary before performing wireless network attacks.</p>
+</li>
+<li>
+<pre><code>airmon-ng start wlan0</code></pre>
+<p>Switches the network adapter from managed mode to monitor mode, which is essential for capturing network packets.</p>
+</li>
+<li>
+<pre><code>airmon-ng stop wlan0mon</code></pre>
+<p>Switches the network adapter from monitor mode back to managed mode. This is useful when you want to revert to normal network operations.</p>
+</li>
+<li>
+<pre><code>airodump-ng wlan0mon</code></pre>
+<p>Displays all networks detected by your adapter, along with details such as connected devices' MAC addresses. This is useful for selecting a target network.</p>
+</li>
+<li>
+<pre><code>airodump-ng -w &lt;fileName&gt; -c &lt;channelNumber&gt; --bssid &lt;BSSID&gt; &lt;interface&gt;</code></pre>
+<p>Monitors a specific network to capture the 4-way handshake between the network and a connecting client. This is often the first step in cracking a Wi-Fi password.</p>
+</li>
+<li>
+<pre><code>aireplay-ng --deauth &lt;times&gt; -a &lt;BSSID | mac of router&gt; -c &lt;MAC of a client&gt; -D wlan0mon</code></pre>
+<p>This command disconnects a client from their network. If you replace <code>&lt;times&gt;</code> with 0, it will continuously keep them disconnected. The <code>-a</code> flag is mandatory, the <code>-c</code> flag is optional (if not specified, it will disconnect all users of the selected network), and <code>-D</code> specifies the network interface you are using.</p>
+</li>
+</ul>
+<p></body><br />
+</html><!-- /wp:html --></p>

@@ -1,0 +1,5 @@
+title: Code‑n‑Hack
+description: A blog migrated from WordPress
+baseurl: "/code-n-hack"     # your repo name; change if needed
+url: "https://<your‑username>.github.io"
+theme: minima               # simple built‑in Jekyll theme

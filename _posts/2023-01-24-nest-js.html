@@ -1,0 +1,364 @@
+---
+layout: post
+title: Nest JS
+date: 2023-01-24 11:15:26.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Javascript
+- JS Frameworks
+- Programming Notes
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: ''
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+  _wp_old_date: '2023-08-22'
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/programming-notes/nest-js/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<html><br />
+<head><br />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></p>
+<style>
+        pre code {<br />
+            font-family: 'Fira', monospace;<br />
+        }<br />
+    </style>
+<p></head><br />
+<body></p>
+<h1>NestJS Tutorial Notes</h1>
+<p>To facilitate following the tutorial, you may refer to the nest-js-tutorial-reboot. Additionally, the following <a href="https://www.youtube.com/watch?v=S0R82Osg-Mk">tutorial</a> was utilized to learn NestJS.</p>
+<h2>Creating and Running an Application</h2>
+<pre style="position: relative;"><code>
+        To create app: nest new &lt;project_name&gt;
+        To run app: npm run start:dev
+    </code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>In the <code>src</code> folder, retain only the <code>main.ts</code> and <code>app.module.ts</code> files. Delete the others and create them manually to assign your own names. Testing the requests can be performed using Postman.</p>
+<h2>Terminology</h2>
+<ul>
+<li>
+<strong>Routes:</strong> A route specifies the code to be executed when a particular endpoint is accessed. Routes accept HTTP requests (GET, POST, PUT, etc.) and send back a response to the client.</p>
+<pre style="position: relative;"><code>
+                Example of a route in express:
+                app.get('/users', (req, res) =&gt; {
+                    // code to handle a GET request to the /users endpoint
+                });
+            </code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+</li>
+<li>
+<strong>Endpoints:</strong> An endpoint is the specific URL where a client can send a request.</li>
+<li>
+<strong>app.module.ts:</strong> Consider that <code>app.module.ts</code> is the root of the application, where you will define controllers, modules, and services.</li>
+<li>
+<strong>Decorators:</strong> Decorators identify what you are trying to create. Import a decorator from <code>@nestjs/common</code>. Example:</p>
+<pre style="position: relative;"><code>
+                import { Controller } from '@nestjs/common';
+                // Usage:
+                @&lt;decorator_thing&gt;
+            </code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+</li>
+<li>
+<strong>Controller:</strong> Controllers handle incoming requests and return responses to the client. They are responsible for specific requests and are often associated with more than one route. Example:</p>
+<pre style="position: relative;"><code>
+                @Controller("students")
+                export class StudentController {
+                    //do something
+                }
+            </code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+</li>
+<li>
+<strong>Services (providers):</strong> Services are used for complex tasks like retrieving and storing data in a database. They are often connected to controllers to manage data flow between the client and the server.</li>
+</ul>
+<h2>How Things Actually Work</h2>
+<h3>Controller</h3>
+<p>A controller is a class containing methods that represent specific routes. A controller can handle multiple routes related to the same logic.</p>
+<pre style="position: relative;"><code>
+        @Controller('students')
+        class StudentController {
+            // This is a controller!
+        }
+    </code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h4>Handling Requests</h4>
+<p>To handle GET requests, import the GET decorator and use it within a controller, as shown below:</p>
+<pre style="position: relative;"><code>
+        import { Controller, Get } from '@nestjs/common';
+
+        @Controller('students')
+        export class StudentController {
+            @Get()
+            getStudents() {
+                return "All students";
+            }
+        }
+    </code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>By making a GET request to <code>http://localhost:3000/students</code>, the response will be “All students”.</p>
+<h5>“Get dynamic parameter” request</h5>
+<p>Use a dynamic parameter in the endpoint to request a specific object by its ID. Example:</p>
+<pre style="position: relative;"><code>
+        @Get("/:studentId")
+        getStudentById() {
+            return "Get student by id";
+        }
+    </code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h5>Request Objects</h5>
+<p>Request objects, like the Param and Body decorators, extract important information from the request. Examples:</p>
+<pre style="position: relative;"><code>
+        // Using Param
+        @Get("/:studentId")
+        getStudentById(@Param('studentId') studentId: string ) {
+            console.log(studentId);
+        }
+
+        // Using Body
+        @Post()
+        createStudent(@Body() body ) {
+            return body.name;
+        }
+    </code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>You can combine both Param and Body for PUT requests:</p>
+<pre style="position: relative;"><code>
+        @Put('/:studentId')
+        updateStudent(@Param('studentId') studentId: string, @Body() body ) {
+            return `Update Student with id of ${studentId} with data of ${JSON.stringify(body)}`;
+        }
+    </code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h2>Data Transfer Objects (DTOs)</h2>
+<p>Data Transfer Objects (DTOs) can be used to specify the data expected in a request body. Here's a simple example:</p>
+<pre style="position: relative;"><code>
+    @Post()
+    createStudent(@Body() body: {
+        name: string,
+        teacher: string
+    }) {
+        return `create student with the following data ${JSON.stringify(body)}`;
+    }
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>This code expects a body like this:</p>
+<pre style="position: relative;"><code>
+    {
+        "name": "Geo",
+        "teacher": "someone"
+    }
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>Instead of specifying the data structure in-line, you can create a separate DTO file. Example:</p>
+<pre style="position: relative;"><code>
+    export class CreateStudentDto {
+        name: string;
+        teacher: string;
+    }
+    // Usage:
+    @Post()
+    createStudent(@Body() body: CreateStudentDto) {
+        return `create student with the following data ${JSON.stringify(body)}`;
+    }
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>DTOs can also be used for sending responses:</p>
+<pre style="position: relative;"><code>
+    export class FindStudentResponseDto{
+        id: string;
+        name: string;
+        teacher: string;
+    }
+
+    @Get()
+    getStudents(): FindStudentResponseDto[] {
+        return "All students";
+    }
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h2>Providers (Services)</h2>
+<p>Providers retrieve the necessary data from the database and send them to the controller. They are classes decorated with the <code>Injectable</code> decorator. You can create a service with the following command:</p>
+<pre style="position: relative;"><code>
+    nest g service &lt;service_name&gt; --no-spec
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>Don't forget to import the class in <code>app.module.ts</code> and add it to the providers:</p>
+<pre style="position: relative;"><code>
+    providers: [StudentService]
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>In this example, the data object <code>students</code> is extracted from the database:</p>
+<pre style="position: relative;"><code>
+    import { students } from "src/database";
+    private students = students;
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>Methods can be created to retrieve specific data. Example:</p>
+<pre style="position: relative;"><code>
+    @Injectable()
+    export class StudentService {
+        private students = students;
+
+        getStudents(): FindStudentResponseDto[] {
+            return this.students;
+        }
+
+        getStudentById(StudentId: string): FindStudentResponseDto {
+            return this.students.find((student) =&gt; {
+                return student.id === StudentId;
+            });
+        }
+    }
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>The data can be transferred to the controller and returned to the client:</p>
+<pre style="position: relative;"><code>
+    constructor(private readonly studentService: StudentService) {}
+
+    return this.studentService.getStudents();
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>For more detailed instructions, refer to the <a href="https://www.youtube.com/watch?v=S0R82Osg-Mk">tutorial</a> from 1:08 to 1:16.</p>
+<h3>Dynamic Parameter Routes</h3>
+<p>In the service class, create a method that takes a string argument. Example:</p>
+<pre style="position: relative;"><code>
+    getStudentById(StudentId: string): FindStudentResponseDto {
+        return this.students.find((student) =&gt; {
+            return student.id === StudentId;
+        });
+    }
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>In the controller file, call this method and pass the student's ID:</p>
+<pre style="position: relative;"><code>
+    @Get("/:studentId")
+    getStudentById(
+        @Param("studentId") studentId: string
+    ): FindStudentResponseDto {
+        return this.studentService.getStudentById(studentId);
+    }
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>Push Request for Creating a New Student</h3>
+<p>Create an object with the ID of the new user and get the rest of the data from the body:</p>
+<pre style="position: relative;"><code>
+    createStudent(payload: CreateStudentDto): StudentResponseDto {
+        let newStudent = {
+            id: uuid(),
+            ...payload,
+        };
+        this.students.push(newStudent);
+        return newStudent;
+    }
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>Update Request (PUT Request)</h3>
+<p>The update request can be handled in the service class as follows:</p>
+<pre style="position: relative;"><code>
+    updateStudent(payload: UpdateStudentDto, studentId: string) {
+        let updatedStudent: StudentResponseDto;
+        const updatedStudentList = this.students.map((student) =&gt; {
+            if (student.id === studentId) {
+                updatedStudent = {
+                    id: studentId,
+                    ...payload,
+                };
+                return updatedStudent;
+            } else {
+                return student;
+            }
+        });
+        this.students = updatedStudentList;
+        return updatedStudent;
+    }
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>Understanding the Update Method</h3>
+<p>If you find the <code>updateStudent</code> method confusing, the following is an in-depth explanation:</p>
+<pre style="position: relative;"><code>
+    updateStudent(payload: UpdateStudentDto, studentId: string) {
+        let updatedStudent: StudentResponseDto;
+        const updatedStudentList = this.students.map((student) =&gt; {
+            if (student.id === studentId) {
+                updatedStudent = {
+                    id: studentId,
+                    ...payload,
+                };
+                return updatedStudent;
+            } else {
+                return student;
+            }
+        });
+        this.students = updatedStudentList;
+        return updatedStudent;
+    }
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>This code defines a method to update a student. The <code>.map</code> method creates a new array by iterating over each student object in the <code>students</code> array, checking if the <code>id</code> property matches the given <code>studentId</code>. If a match is found, a new student object is created and returned. Otherwise, the current student object is returned as is. After this process, the <code>students</code> array contains the updated student object, and this object is returned from the method.</p>
+<p><i>Note: This explanation is provided for a better understanding of the code. However, it might be complex if you're tired. You can revisit it later.</i></p>
+<h3>Some Method</h3>
+<p>The <code>some</code> method is useful for finding an object in an array that meets a certain criterion. For example:</p>
+<pre style="position: relative;"><code>
+    const studentExists = students.some(student =&gt; {
+        return student.id === studentId;
+    });
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>This code checks if there's a student in the database with the given <code>studentId</code> and returns <code>true</code> if at least one object passes the criterion.</p>
+<h3>Pipes</h3>
+<p>Pipes are used to validate requests. You can find more information and examples in the <a href="https://docs.nestjs.com/pipes">official NestJS Pipes documentation</a>.</p>
+<h3>Middleware</h3>
+<p>If you prefer not to use pipes, middleware can perform similar validation tasks. Middleware classes are decorated with the <code>Injectable</code> decorator and implement <code>NestMiddleware</code>. Here's an example of middleware that validates if a student with a given ID exists:</p>
+<pre style="position: relative;"><code>
+    @Injectable()
+    export class ValidStudentMiddleware implements NestMiddleware {
+        use(req: Request, res: Response, next: NextFunction) {
+            const studentId = req.params.studentId;
+            const studentExists = students.some(student =&gt; {
+                return student.id === studentId;
+            });
+
+            if (!studentExists) {
+                throw new HttpException("student not found", 400)
+            }
+            next()
+        }
+    }
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>To apply middleware to specific routes, you need to register it in the <code>app.module.ts</code> file. Here's an example:</p>
+<pre style="position: relative;"><code>
+    export class AppModule implements NestModule {
+        configure(consumer: MiddlewareConsumer) {
+            consumer.apply(ValidStudentMiddleware).forRoutes({
+                path: "students/:studentId",
+                method: RequestMethod.GET
+            });
+        }
+    }
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>This code applies the <code>ValidStudentMiddleware</code> to the GET request for the path <code>"students/:studentId"</code>.</p>
+<p><i>Note: Though the author's original text contains a casual tone and some profanity, these have been omitted to maintain a formal and professional presentation of the content.</i><br />
+</body><br />
+</html></p>

@@ -1,0 +1,275 @@
+---
+layout: post
+title: Fishing Attacks
+date: 2022-06-02 16:01:52.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Ethical Hacking
+- Kali Linux
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: "#post_title"
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/ethical-hacking/kali-linux/perform-fishing-attack-using-ngrok-in-kali/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<!-- wp:paragraph --><html><body></p>
+<p><strong>IMPORTANT: This post and any other post I upload is written for informational and educational purposes only! DO NOT try this on any network you do not have permission to ethically test.</strong> Never use any knowledge to harm people. This Post provides instructions only for educational purposes, you should never use Software like these to harm other people.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>As in every other tutorial we are going to use kali, to download kali see: <a href="https://dev-code-n-hack.pantheonsite.io/download-and-install-kali-linux-on-windows-10-11-using-virtualbox/">How to Install kali</a> and <a href="https://dev-code-n-hack.pantheonsite.io/download-and-install-kali-linux-on-windows-10-11-using-virtualbox-the-easy-method/">How to install kali (The easy way)</a>.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>In this post we will see how to use three different tools to generate a phishing website and then send it to the victim using social engineering techniques.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>A phishing attack is a type of cyber attack in which the attacker attempts to trick a victim into providing sensitive information, such as login credentials or financial information, by disguising themselves as a trustworthy entity. The process of a phishing attack typically involves the following steps:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list {"ordered":true} --></p>
+<ol>
+<!-- wp:list-item --></p>
+<li>Creation of replica website: The attacker will create a replica website that is identical to the legitimate one (one website on which the victim has an account registered). They will often use similar logos, colors, and language to make the website look as authentic as possible. In our case we will use tools which will do that automatically for us. That means that our website choices are limited.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>Creating the message: The attacker will then create a message that appears to be from the legitimate source, such as an email or text message. The message will typically ask the recipient to click on a link or enter personal information on the replica website. In this tutorial we will use the kali's social engineering toolkit to generate an e-mail.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>Sending the message: The attacker will then send the message to a large number of individuals, (or even just one person "spear-phishing attack"). The message will appear to come from a legitimate source, such as a bank or company, and will often contain a sense of urgency (for example "ban of account") or a threat (for example "unknown login") to encourage the recipient to click on the link or enter personal information.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>Collecting sensitive information: Once the recipient clicks on the link or enters personal information on the replica website, the attacker will collect this information through Ngrok in our case and use it for their own gain, such as stealing money or committing identity theft.</li>
+<p><!-- /wp:list-item -->
+</ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph {"fontSize":"x-large"} --></p>
+<p class="has-x-large-font-size">UPDATE: Best Tool to generate the website (zphisher - without Ngrok)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>UPDATE: After some time, ngrok banned me from using their service. So I had to find to find another tool to tunnel my localhost. Well, i found it and it is called cloudflared. No account needed! Best part is, i also found a tool named zphisher which has cloudflared built in, masks links in a very clever way and the websites it has are constantly being updated to look exactly like the originals! Lets begin!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>cd into the directory into which you want to download zphisher:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>For example i want to download it into /home. Then, clone the zphisher repo:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>git clone https://github.com/htr-tech/zphisher.git</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>cd into the created directory: cd zphisher</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>And give yourself the privileges to run the app:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>chmod +x ./zphisher</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>And run the app:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>./zphisher</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":307,"sizeSlug":"full","linkDestination":"none","className":"is-style-default"} --></p>
+<figure class="wp-block-image size-full is-style-default"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot_20230119_035838-1.png" alt="" class="wp-image-307"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:image {"id":308,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot_20230119_040928.png" alt="" class="wp-image-308"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Here, as you can see, we have NUMBER different templates to choose from and each choice doesn't only  have a template but also more options depending on the attack you choose. For demonstration, i will choose google (option 3). then option 2 because i want the new login page</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":309,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot_20230119_040954.png" alt="" class="wp-image-309"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>now choose option 3 for cloudflared, and keep the custom port as is (press 'n'). </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":310,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot_20230119_041022.png" alt="" class="wp-image-310"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Here press 'y' and type the URL that the victim will see. In my case i am using google log in, which has this login URL: https://accounts.google.com/ so i will use the same.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":311,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot_20230119_042249.png" alt="" class="wp-image-311"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Press enter and done!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":312,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot_20230119_042317.png" alt="" class="wp-image-312"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>the URL 3 is the one you want to send to the victim. To test this, let's open it ourselves:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":314,"width":395,"height":430,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full is-resized"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot_20230119_042730.png" alt="" class="wp-image-314" width="395" height="430"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>The url looks very suspicious but most people won't even notice (the ones that are not very familiar with technology).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>You can also add your own custom template, but it would take too much time to develop.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>On our end we get this:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":317,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot_20230119_042920.png" alt="" class="wp-image-317"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>great! now let's see how to do the same thing with other tools that require ngrok:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph {"fontSize":"x-large"} --></p>
+<p class="has-x-large-font-size">STEP 1: Set up Ngrok:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>For the connection between the fake website on the victim's end and you, we are going to generate an authtoken from Ngrok which can be found by creating an Ngrok account: <a href="https://ngrok.com/">Ngrok </a>(It is free for ever). After logging in, download ngrok to any location in your kali machine:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":291,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot_20230118_115853-1024x370.png" alt="" class="wp-image-291"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>unzip it:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":292,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot_20230118_115926.png" alt="" class="wp-image-292"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:image {"id":293,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot_20230118_115943-1024x766.png" alt="" class="wp-image-293"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now you have to go back in your terminal where you downloaded Ngrok and type this command:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>./ngrok authtoken replace_this_text_with_your_authtoken</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>You can find your authtoken here:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":294,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot_20230119_120118-1024x235.png" alt="" class="wp-image-294"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>after running the command you will see the following message:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":295,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot_20230119_120204-1024x285.png" alt="" class="wp-image-295"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>That means that you have set up ngrok!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Note: setting up ngrok is one time only. You don't have to do this again the next time.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph {"fontSize":"x-large"} --></p>
+<p class="has-x-large-font-size">STEP 2: Create a fake website identical to the original:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph {"fontSize":"x-large"} --></p>
+<p class="has-x-large-font-size">1st WAY: Blackeye</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Blackeye is one of the favorite tools to use when it comes to fishing. So let's begin:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Choose a location in which you will download Blackeye (I chose "/home"). cd to that location and type "git clone https://github.com/thewickedkarma/blackeye-im".</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":140,"width":569,"height":160,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full is-resized"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-02-17-32-37.png" alt="" class="wp-image-140" width="569" height="160"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>cd to "blackeye-im" and "ls" to see the files. Now we need the blackeye.sh. To run this file, type "chmod +x blackeye.sh" and "./blackeye" Now press any option it doesn't matter and then press 1 to select Ngrok. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":142,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-02-17-43-41.png" alt="" class="wp-image-142"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:image {"id":141,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-02-17-38-34-1024x550.png" alt="" class="wp-image-141"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Note: You don't need to download Ngrok you just need this command under the blackeye-im folder:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now, it is registered and you can create the fake website, now it is as simple as one, two, three: 1. "./blackeye" 2. "select any website you like" 3. "Press 1 to select Ngrok servers" and you are good to go! First way Done!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph {"fontSize":"x-large"} --></p>
+<p class="has-x-large-font-size">2nd WAY: SHELLFISH</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Some people prefer this way because it has a tiny URLs - URL Shortener feature so the URL looks more legit. The downside with shellfish is that it only has 20 websites while blackeye has 40.. Lame. Anyway, the steps are pretty much the same. I think the images are enough, as the explanation was in the previous method.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":143,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-02-17-59-56.png" alt="" class="wp-image-143"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:image {"id":144,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-02-18-00-50.png" alt="" class="wp-image-144"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:image {"id":145,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-02-18-01-05.png" alt="" class="wp-image-145"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph {"fontSize":"x-large"} --></p>
+<p class="has-x-large-font-size">3rd WAY: HiddenEye</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Well, I don't know how lol. I think they removed the link for it. Anyway I can't find it, if someone, finds a solution please answer. I've heard great things about it. Like it uses a Keylogger and I would really love to check its functionality. Anyway...</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph {"fontSize":"x-large"} --></p>
+<p class="has-x-large-font-size">STEP 3: Transfer the link to the user in a legit way.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>There are many ways to send the generated link to the user and one of them is my favorite *Drum rolls* Social Engineering! For examples we want to find an Instagram user's username and password. We will pretend that we are Instagram and will send a mail saying that he will have to login to his account for whatever reason, the user will be tricked and we will have their password. Best thing is that kali has a social engineering toolkit (a really useful toolkit in my opinion).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Search for social Engineering toolkit and click on it once you find it:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":146,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-02-18-17-56-1024x535.png" alt="" class="wp-image-146"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>When it is opened, select option 1: Social-Engineering Attacks:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":296,"width":390,"height":627,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full is-resized"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot_20230119_121317.png" alt="" class="wp-image-296" width="390" height="627"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>then select from the (really useful) list the 5th option for mail attack, then select 1 to send mail to one person and again 1 to use your own e-mail:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":149,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-02-18-48-59-2.png" alt="" class="wp-image-149"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p> Lastly complete all the information it asks you (I suggest you create a dummy email to use here):</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":150,"width":1101,"height":190,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{site.baseurl}}/assets/images/2022/06/Screenshot-2022-06-02-18-48-59-3-1024x178.png" alt="" class="wp-image-150" width="1101" height="190"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>I suggest not using plain text but instead, copy html from an actual Instagram mail to make it look real and write "END" and press &lt;enter&gt; to send the mail.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Congratulations! You've learnt how to create a fishing attack. If you have any questions, let me know in the comments. </p>
+<p><!-- /wp:paragraph --><br />
+</body></html></p>

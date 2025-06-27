@@ -1,0 +1,138 @@
+---
+layout: post
+title: Internet
+date: 2021-02-10 20:24:08.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Ethical Hacking
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: ''
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_old_date: '2023-08-27'
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/ethical-hacking/internet/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<!-- wp:paragraph --><html><body></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:html --></p>
+<style>
+    pre code {<br />
+      font-family: 'Fira', monospace;<br />
+    }<br />
+  </style>
+<p><!-- /wp:html --></p>
+<p><!-- wp:heading {"level":1} --></p>
+<h1 class="wp-block-heading">Network Notes on IP Addresses</h1>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading">Public IP Address</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A public IP address, also known as an external IP address, is a unique identifier assigned to every device that connects to the Internet. This protocol facilitates devices in locating each other on the global network for the exchange of information. End-users do not have control over the public IP address assigned to their device. The Internet Service Provider (ISP) assigns the public IP address when a device initiates an Internet connection. Public IP addresses can be classified into different types, namely: static, dynamic, or shared. These classifications dictate whether the IP address will change over time.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading">Static IP Address</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A static IP address remains constant and is assigned exclusively to a single user, device, server, or website.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":496,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2021/02/Picture1-1.png" alt="" class="wp-image-496"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>In the illustrated example, the Internet Service Provider (ISP) allocates distinct and immutable IP addresses to different routers. In such cases, the router is responsible for the Network Address Translation (NAT) process, making the ISP "transparent" when the router communicates with remote computers over the Internet.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>For most end-users, a static IP address is not essential. However, it becomes crucial when continuous remote access to a device is required. Since the IP address remains constant, only one IP address needs to be remembered for repeated access.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading">Dynamic IP Address</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A dynamic IP address may undergo periodic changes. These changes can occur when a connection is reset or through occasional updates by the ISP.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":497,"sizeSlug":"full","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-full"><img src="{{site.baseurl}}/assets/images/2021/02/Picture2-1.png" alt="" class="wp-image-497"></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>In the context of a dynamic IP address, the ISP assigns routers with private WAN IP addresses. These private addresses are translated to public IP addresses for external communications. Unlike static IP addresses, dynamic IP addresses are transient and subject to change.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>While dynamic IP addresses pose challenges for remote access, solutions do exist. Utilizing Dynamic DNS services can simplify remote connectivity. These services update the IP address mapping to a hostname periodically, facilitating constant accessibility even if the IP address changes.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading">Private IP Address</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A private IP address is restricted for use within a local network. Devices with private IP addresses cannot establish direct connections to the Internet. Additionally, devices outside the local network cannot initiate direct connections to a device bearing a private IP address.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The Internet Assigned Numbers Authority (IANA) has designated the following IP address ranges for private networks:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<!-- wp:list-item --></p>
+<li>10.0.0.0 - 10.255.255.255 (Total Addresses: 16,777,216)</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>172.16.0.0 - 172.31.255.255 (Total Addresses: 1,048,576)</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>192.168.0.0 - 192.168.255.255 (Total Addresses: 65,536)</li>
+<p><!-- /wp:list-item -->
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading">IP Address Terminology</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:list --></p>
+<ul>
+<!-- wp:list-item --></p>
+<li>
+<strong>Static:</strong> Indicates an IP address that remains constant.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>
+<strong>Dynamic:</strong> Indicates an IP address that may change periodically.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>
+<strong>Public:</strong> Indicates an IP address that is globally accessible.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>
+<strong>Private:</strong> Indicates an IP address that is restricted to a local network.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>
+<strong>Shared:</strong> Indicates an IP address used by multiple users.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>
+<strong>Dedicated:</strong> Indicates an IP address used exclusively by a single user.</li>
+<p><!-- /wp:list-item -->
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>Note:</strong> Additional information is available at the following <a href="https://wiki.teltonika-networks.com/view/Private_and_Public_IP_Addresses">link</a>.</p>
+<p><!-- /wp:paragraph --><br />
+</body></html></p>

@@ -1,0 +1,129 @@
+---
+layout: post
+title: C++ Vectors
+date: 2022-05-27 10:58:44.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- C++
+- Data Structures
+- Programming Notes
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: ''
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+  _wp_old_date: '2023-08-20'
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/programming-notes/cpp/c-vectors/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<html><br />
+<head><br />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></p>
+<style>
+        code {<br />
+            font-family: 'Fira Code', monospace;<br />
+            background-color: #f5f5f5;<br />
+            padding: 5px;<br />
+            border-radius: 3px;<br />
+        }<br />
+    </style>
+<p></head><br />
+<body></p>
+<h2>Introduction to Vectors in C++</h2>
+<p>Vectors in C++ are dynamic arrays utilized to store data. Unlike static arrays, which store sequential data, vectors offer enhanced flexibility. Vectors can automatically resize based on the insertion or deletion of an element. This dynamic resizing feature distinguishes vectors from arrays, where only a predefined number of values can be stored under a single variable name. Data in vectors is typically inserted at the end.</p>
+<h3>Key Notes:</h3>
+<ul>
+<li>
+<strong>Note 1:</strong> Vector elements can be accessed similarly to array elements, using the syntax: <code>vector[m]</code>.</li>
+<li>
+<strong>Note 2:</strong> Directly assigning values to vector elements without using appropriate modifiers will not adjust the vector's size. For instance, <code>vector[m] = n;</code> is not recommended. Instead, it's essential to understand and utilize vector modifiers.</li>
+</ul>
+<h3>Vector Initialization:</h3>
+<p>To declare a vector, use the following syntax:</p>
+<pre style="position: relative;"><code>vector&lt;object_type&gt; variable_name;</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>Example:</h3>
+<pre style="position: relative;"><code>
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    vector&lt;int&gt; intVector;
+    vector&lt;string&gt; stringVector;
+}
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>Vector Iterators:</h3>
+<ul>
+<li>
+<code>begin()</code>: Returns an iterator pointing to the first element in the vector.</li>
+<li>
+<code>end()</code>: Returns an iterator pointing to the theoretical element following the last element in the vector.</li>
+</ul>
+<h3>Vector Modifiers:</h3>
+<ul>
+<li>
+<code>assign(n, m)</code>: Clears the vector and assigns the element <code>m</code>, <code>n</code> times.</li>
+<li>
+<code>push_back(m)</code>: Inserts the element <code>m</code> at the end of the vector, increasing its size by one.</li>
+<li>
+<code>pop_back()</code>: Removes the last element from the vector, decreasing its size by one.</li>
+<li>
+<code>insert(m, k, n)</code>: Inserts the element <code>n</code> at the position <code>m</code> for <code>k</code> times. If <code>k</code> is omitted, <code>n</code> is inserted once.</li>
+<li>
+<code>erase(n, m)</code>: Removes elements from position <code>n</code> to position <code>m</code>. If <code>m</code> is omitted, only the element at position <code>n</code> is removed.</li>
+<li>
+<code>swap()</code>: Exchanges the contents of the vector with another vector of the same type.</li>
+<li>
+<code>clear()</code>: Removes all elements from the vector.</li>
+</ul>
+<h3>Examples of Vector Modifiers:</h3>
+<pre style="position: relative;"><code>
+vector&lt;int&gt; exampleVector;
+
+// Using assign():
+exampleVector.assign(100, 10); // Fills the vector with 100 tens.
+exampleVector.assign(3, 5);    // Clears the vector and adds three fives.
+
+// Using push_back():
+exampleVector.push_back(10);   // Adds a 10 to the end of the vector.
+
+// Using pop_back():
+exampleVector.pop_back();      // Removes the last element from the vector.
+
+// Using insert():
+exampleVector.insert(exampleVector.end(), 5);           // Inserts a 5 at the end.
+exampleVector.insert(exampleVector.begin() + 1, 2, 3);  // Inserts two 3s at the second position.
+
+// Using erase():
+exampleVector.erase(exampleVector.begin() + 1);         // Removes the second element.
+exampleVector.erase(exampleVector.begin(), exampleVector.end() - 1); // Removes all elements except the last one.
+
+// Using swap():
+vector&lt;int&gt; anotherVector;
+exampleVector.swap(anotherVector); // Swaps the contents of exampleVector and anotherVector.
+
+// Using clear():
+exampleVector.clear(); // Removes all elements from exampleVector.
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p></body><br />
+</html></p>

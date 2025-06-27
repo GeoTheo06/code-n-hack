@@ -1,0 +1,100 @@
+---
+layout: post
+title: Bash Scripting
+date: 2022-12-02 18:42:15.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Programming Notes
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: ''
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_old_date: '2023-08-27'
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/programming-notes/bash-scripting/"
+---
+<p><!DOCTYPE html><br />
+<!-- wp:html --><html><br />
+<head><br />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><br />
+  <title>Bash Scripting Notes</title></p>
+<style>
+    code {<br />
+      font-family: "Fira", monospace;<br />
+    }<br />
+  </style>
+<p></head><br />
+<body></p>
+<h1>Bash Scripting Notes</h1>
+<h2>File Operations</h2>
+<ul>
+<li><strong>Opening a File in Edit Mode:</strong></li>
+</ul>
+<pre><code>nano filename.sh</code></pre>
+<li><strong>Running a Bash File:</strong></li>
+<pre><code>bash filename.sh</code></pre>
+<li><strong>Changing File Permissions:</strong></li>
+<pre><code>chmod +x filename.sh</code></pre>
+<li><strong>Running an Executable File:</strong></li>
+<pre><code>./filename.sh</code></pre>
+<h2>Console Output and Delay</h2>
+<ul>
+<li><strong>Sending a Message to the Console:</strong></li>
+</ul>
+<pre><code>echo "hey"</code></pre>
+<li><strong>Pausing Execution for a Specified Duration:</strong></li>
+<pre><code>sleep 5</code></pre>
+<h2>Variable Operations</h2>
+<ul>
+<li><strong>Creating a String Variable:</strong></li>
+</ul>
+<pre><code>variableName="this is text"</code></pre>
+<li><strong>Utilizing a String Variable:</strong></li>
+<pre><code>echo "this is a random text $variableName"</code></pre>
+<li><strong>Reading Text Directly from the Console:</strong></li>
+<pre><code>read variableName</code></pre>
+<h2>Command Line Arguments</h2>
+<ul>
+<li><strong>Creating Arguments:</strong></li>
+</ul>
+<pre><code>arg1=\$1
+arg2=\$2</code></pre>
+<li><strong>Using Output of a Command as an Argument:</strong></li>
+<pre><code>dateArgument=\$(date)</code></pre>
+<li><strong>Creating System-Wide Variables:</strong></li>
+<pre><code>export systemVariable="value"</code></pre>
+<li><strong>Making a System Variable Permanent:</strong></li>
+<pre><code>nano .bashrc
+export systemVariable="value"</code></pre>
+<h2>Built-in Variables and Operations</h2>
+<ul>
+<li><strong>Generating a Random Number:</strong></li>
+</ul>
+<pre><code>echo \$RANDOM</code></pre>
+<li><strong>Performing Arithmetic Operations:</strong></li>
+<pre><code>echo $((1+1))</code></pre>
+<li><strong>Shell Information:</strong></li>
+<pre><code>echo \$SHELL</code></pre>
+<li><strong>User Information:</strong></li>
+<pre><code>echo \$USER</code></pre>
+<li><strong>Current Working Directory:</strong></li>
+<pre><code>echo \$PWD</code></pre>
+<p></body><br />
+</html><!-- /wp:html --></p>

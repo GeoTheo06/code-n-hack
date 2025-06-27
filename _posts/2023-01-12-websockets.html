@@ -1,0 +1,91 @@
+---
+layout: post
+title: Websockets
+date: 2023-01-12 12:04:03.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Programming Notes
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: ''
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+  _wp_old_date: '2023-08-24'
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/programming-notes/websockets/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<html><body></p>
+<h1>Websocket Module in Node.js</h1>
+<p>For the purpose of this document, the ws module from Node.js will be used:</p>
+<h2>Introduction to the Websocket Module</h2>
+<p>Websockets are a protocol that permits full-duplex communication between a client and a server. They are commonly implemented using JavaScript on both the client-side and server-side. To utilize Node.js, it is necessary to use the Websocket module, which is a simple and lightweight module designed specifically for Node.js.</p>
+<h2>Example Usage of the ws Module</h2>
+<p>Below is an example demonstrating how to create a simple websocket server in Node.js (backend):</p>
+<pre style="position: relative;"><code style="font-family: Fira;">
+const WebSocket = require('ws'); // initialize websockets
+
+const wss = new WebSocket.Server({ port: 8080 }); // create a websocket server named wss
+
+wss.on('connection', (ws) =&gt; { // check if there is a connection
+    ws.on('message', (message) =&gt; { // check if there is a message sent by the client and capture this message in a "message" variable
+        console.log(`Server: Received message from client: ${message}`);
+    });
+    
+    ws.send('Hello from the server!');
+});
+
+// This code creates a websocket server that listens for incoming connections on port 8080. When a
+// new connection is established, the server sends a message to the client and listens for incoming
+// messages from the client.
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>Client-Side Implementation</h3>
+<p>On the client side, JavaScript (frontend) can be used to connect to the websocket server and send and receive messages. A client can be a browser. Open the browser, visit localhost:8080, and type the following:</p>
+<pre style="position: relative;"><code style="font-family: Fira;">
+const ws = new WebSocket('ws://localhost:8080'); // telling frontend JavaScript what the server properties are (port in this case)
+ws.onopen = () =&gt; { // when the server opens
+    ws.send('Hello from the client!'); // send a message
+};
+ws.onmessage = (event) =&gt; { // if you receive a message, capture it as “event“
+    console.log(`Client: Received message from server: ${event.data}`); // and log its content in the console
+};
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>In this example, as soon as a connection is established (as soon as the client connects using the frontend command), the server will respond with "Hello from the server."</p>
+<p><img class="alignnone size-full wp-image-467" src="{{site.baseurl}}/assets/images/2023/01/Picture1.png" alt="" width="602" height="592"></p>
+<p>Then, the client will capture it and print it in the console.</p>
+<p>To prepare the client for the message though we first need to open the console in localhost:8080 and type this frontend code:</p>
+<p><img class="alignnone size-full wp-image-466" src="{{site.baseurl}}/assets/images/2023/01/Picture2.png" alt="" width="602" height="221"></p>
+<p>And if we check the network tab we can see specifically the packet that was sent and its content:</p>
+<p><img class="alignnone size-full wp-image-465" src="{{site.baseurl}}/assets/images/2023/01/Picture3.png" alt="" width="602" height="313"></p>
+<h3>Communication Between Client and Server</h3>
+<p>So, the server sent a message, and the client received it. To achieve the opposite, the client must first send a message to the server using the following code:</p>
+<p><img class="alignnone size-full wp-image-464" src="{{site.baseurl}}/assets/images/2023/01/Picture4.png" alt="" width="602" height="305"></p>
+<p>Then, the server can capture this text with:</p>
+<pre style="position: relative;"><code style="font-family: Fira;">
+ws.on('message', (message) =&gt; {
+    console.log(`Server: Received message from client: ${message}`);
+})
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>Assuming that ws represents the server.</p>
+<p><img class="alignnone size-full wp-image-463" src="{{site.baseurl}}/assets/images/2023/01/Picture5.png" alt="" width="597" height="348"></p>
+<p>The server will receive a message sent by the client as well. This demonstrates how WebSockets function!</body></html></p>

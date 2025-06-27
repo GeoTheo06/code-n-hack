@@ -1,0 +1,162 @@
+---
+layout: post
+title: Unity Project Tips
+date: 2022-07-30 10:39:30.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Programming Notes
+- Unity
+tags:
+- c#
+- game
+- game dev
+- game development
+- programming
+- unity
+meta:
+  _edit_last: '1'
+  _aioseo_title: ''
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  footnotes: ''
+  _wp_page_template: default
+  _wp_old_date: '2023-08-17'
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/programming-notes/unity-project-tips/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<html><body><br />
+<span style="color: revert; font-family: var(--wp--preset--font-family--source-serif-pro); font-size: var(--wp--custom--typography--font-size--gigantic); background-color: var(--wp--preset--color--foreground);">General Tips</span></p>
+<ul>
+<li>Always utilize URP (Universal Render Pipeline) in every project.</li>
+<li>For optimal performance, navigate to <code>Edit -&gt; Project Settings -&gt; Time -&gt; Fixed Timestep</code> and set the value to <code>0.01333</code>.</li>
+<li>To modify properties for multiple objects simultaneously, select them using <code>Ctrl + Click</code>.</li>
+<li>For debugging purposes, employ the <code>Debug.Log("Hello World!");</code> command.</li>
+<li>Global variables can be modified directly from the Inspector window.</li>
+<li>If utilizing real values within the <code>Update()</code> function, remember to multiply the force by Time.deltaTime to ensure consistency across different frame rates. Example:
+<pre style="position: relative;"><code>rb.AddForce(0, 0, 50 * Time.deltaTime);</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+</li>
+<li>For physics implementations in scripts, <code>FixedUpdate()</code> is preferable over <code>Update()</code>
+</li>
+<li>To enhance control responsiveness, consider increasing the Drag parameter.</li>
+</ul>
+<h2>Version Control in Unity</h2>
+<ol>
+<li>Adjust the version control mode to "Visible Meta Files".</li>
+<li>Set the asset serialization mode to "Force Text".</li>
+<li>Integration with Azure DevOps for version control is highly recommended.</li>
+</ol>
+<h3>Additional Resources</h3>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=lQkLtr63_cM">Video tutorial for creating particle systems and more.</a></li>
+<li><a href="https://www.mixamo.com">Website for Unity-compatible characters and animations. (Configuration details available through specific video tutorials)</a></li>
+<li><a href="https://www.youtube.com/watch?v=9H0aJhKSlEQ">How to import Animations (Tutorial 1).</a></li>
+<li><a href="https://www.youtube.com/watch?v=ReauId6jFFI">How to import Animations (Tutorial 2).</a></li>
+</ul>
+<h2>Unity Definitions</h2>
+<dl>
+<dt>Assets:</dt>
+<dd>All files utilized within a project, including GameObjects, Textures, and audio files.</dd>
+<dt>GameObjects:</dt>
+<dd>Interactive entities encountered by players in a game.</dd>
+</dl>
+<h2>Implementing Realistic Physics in Unity</h2>
+<p>For a realistic physical experience, two essential components are required:</p>
+<ol>
+<li>Box Collider: Responsible for collision detection.</li>
+<li>Rigid Body: Manages gravitational forces on an object. To add a Rigid Body component to an object, navigate to: <code>Object -&gt; Add Component -&gt; Physics -&gt; RigidBody</code>
+</li>
+</ol>
+<h2>Manipulating GameObject’s Components via C#</h2>
+<p>To modify a GameObject's components programmatically using C#:</p>
+<ol>
+<li>Instantiate an object corresponding to the desired component's class within your script. Example:
+<pre style="position: relative;"><code>public Rigidbody rb;</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+</li>
+<li>Save the script and proceed to the Unity editor. Drag the relevant component onto the variable you've just declared in the script.</li>
+<li>Once linked, modifications can be made within the script. For instance:
+<pre style="position: relative;"><code>
+void Update() {
+    if (example &gt; example2) {
+        rb.useGravity = false;
+        rb.AddForce(0, 1000, 1000);
+    }
+}
+        </code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+</li>
+</ol>
+<h2>Utilizing IntelliSense in Unity</h2>
+<p>IntelliSense in Unity offers a comprehensive list of available commands and functionalities for an object:</p>
+<ul>
+<li>Type the object name followed by a dot (.) to activate IntelliSense and view available methods and properties.</li>
+<li>Hover over a particular function to see its detailed documentation, including required arguments and usage.</li>
+<li>For unfamiliar data types or to gain further insights into a method, consult the official <a href="https://docs.unity3d.com/ScriptReference/">Unity documentation</a>.</li>
+</ul>
+<h2>Accessing GameObject Information</h2>
+<p>The Transform class can be used to retrieve location, rotation, and scale details of a GameObject. Example usage:</p>
+<pre style="position: relative;"><code>public Transform varName;</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<p>Following this declaration, drag the target GameObject to the variable via the Inspector window.</p>
+<h2>Script Intercommunication in Unity</h2>
+<p>To reference one script from another:</p>
+<ol>
+<li>Declare an object of the script type you wish to communicate with. Example:
+<pre style="position: relative;"><code>public PlayerMovement movement;</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+</li>
+<li>In the Inspector window, drag the desired script onto the variable you've defined.</li>
+<li>You can now control and manipulate the referenced script as demonstrated:
+<pre style="position: relative;"><code>movement.enabled = false;</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+</li>
+</ol>
+<h2>Handling Time Delays</h2>
+<p>There are two primary techniques for introducing time delays within Unity:</p>
+<ul>
+<li>
+<strong>Automatic Method</strong>: Implemented using coroutines. Example:</p>
+<pre style="position: relative;"><code>
+StartCoroutine(zombiesSpawn());
+IEnumerator zombiesSpawn() {
+    yield return new WaitForSeconds(0.5f);
+}
+        </code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+</li>
+<li>
+<strong>Manual Method</strong>: By leveraging <code>Time.deltaTime</code> to count the elapsed time between frames. It's important to halt the timer once its purpose has been fulfilled to prevent unnecessary computations. Example:</p>
+<pre style="position: relative;"><code>
+bool stopCounting = false;
+float timer = 0;
+
+if (!stopCounting) {
+    timer += Time.deltaTime;
+}
+
+if (timer &gt; 5) {
+    // Execute desired actions
+    stopCounting = true;
+}
+        </code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+</li>
+</ul>
+<p></body></html></p>

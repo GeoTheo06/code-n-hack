@@ -1,0 +1,59 @@
+---
+layout: post
+title: NPM
+date: 2022-12-23 11:47:38.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Javascript
+- Programming Notes
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: ''
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+  _wp_old_date: '2023-08-24'
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/programming-notes/npm/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<html><body>
+<p>if you want to create a dependency, run "npm install <name_of_dependency>". Then, the name and version of the dependency will be listed in the package.json file, and the dependency will be downloaded in the node_modules folder so you can use it later.</p>
+<p>The huge npm's advantage is that you can make your project very portable with it. For example, if you are in another computer and need your dependencies, you don't have to download them manually or transfer the node_modules folder, you can simply have th package.json and type "npm install" and it will download all the dependencies that are listed in the package.json.</p>
+<p>You can download dev dependencies by typing npm install -D <dependency_name></p>
+<p>This is the example of a package.json of a project in which i had installed the uuid dependency and the nodemon as a dev dependency:</p>
+<p>{<br />
+"name": "nodejs-tutorial",<br />
+"version": "1.0.0",<br />
+"description": "node crash course",<br />
+"main": "index.js",<br />
+"scripts": {<br />
+"test": "echo \"Error: no test specified\" &amp;&amp; exit 1"<br />
+},<br />
+"author": "GioTeo",<br />
+"license": "ISC",<br />
+"dependencies": {<br />
+"uuid": "^9.0.0"<br />
+},<br />
+"devDependencies": {<br />
+"nodemon": "^2.0.20"<br />
+}<br />
+}</p>
+<p>from these info, npm can install the needed dependencies to run the project if you don't have them installed.</dependency_name></name_of_dependency></p>
+<p></body></html></p>

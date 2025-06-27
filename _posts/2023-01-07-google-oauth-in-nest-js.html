@@ -1,0 +1,107 @@
+---
+layout: post
+title: Google OAuth In Nest JS
+date: 2023-01-07 11:10:32.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Javascript
+- JS Frameworks
+- Programming Notes
+tags: []
+meta:
+  _edit_last: '1'
+  _aioseo_title: ''
+  _aioseo_description: ''
+  _aioseo_keywords: ''
+  _aioseo_og_title: ''
+  _aioseo_og_description: ''
+  _aioseo_og_article_section: ''
+  _aioseo_og_article_tags: ''
+  _aioseo_twitter_title: ''
+  _aioseo_twitter_description: ''
+  _wp_page_template: default
+  _wp_old_date: '2023-08-24'
+author:
+  login: GeoTheo
+  email: theodorgeor@gmail.com
+  display_name: GeoTheo
+  first_name: ''
+  last_name: ''
+permalink: "/programming-notes/google-oauth-in-nest-js/"
+---
+<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
+<html><body></p>
+<h1>Implementing Google OAuth in Nest.js</h1>
+<h2>1. Setting Up Google Developer Console</h2>
+<p>Create an application on the Google Developer Console following this tutorial:</p>
+<p><a href="https://dev.to/imichaelowolabi/how-to-implement-login-with-google-in-nest-js-2aoa">How to Implement Login with Google in Nest.js</a></p>
+<h2>2. Creating a Nest Project</h2>
+<p>Create a new Nest project and install the required dependencies:</p>
+<pre style="position: relative;"><code style="font-family: Fira;">
+npm install --save @nestjs/passport passport passport-google-oauth20 dotenv
+npm install -D @types/passport-google-oauth20
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h2>3. Implementing the Google Strategy</h2>
+<p>Configure the Google strategy by creating a file named <code>google.strategy.ts</code>:</p>
+<pre style="position: relative;"><code style="font-family: Fira;">
+// Code for google.strategy.ts
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h2>4. Handling Requests and Responses</h2>
+<p>Update the <code>app.controller</code> and <code>app.service</code> files and register the GoogleStrategy:</p>
+<pre style="position: relative;"><code style="font-family: Fira;">
+providers: [AppService, GoogleStrategy],
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>App Controller Code</h3>
+<pre style="position: relative;"><code style="font-family: Fira;">
+import { Controller, Get, Req, UseGuards } from "@nestjs/common";
+import { AppService } from "./app.service";
+import { AuthGuard } from "@nestjs/passport";
+
+@Controller("google")
+export class AppController {
+    constructor(private readonly appService: AppService) {}
+
+    @Get()
+    @UseGuards(AuthGuard("google"))
+    async googleAuth(@Req() req) {}
+
+    @Get("redirect")
+    @UseGuards(AuthGuard("google"))
+    googleAuthRedirect(@Req() req) {
+        return this.appService.googleLogin(req);
+    }
+}
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h3>Service File Code</h3>
+<pre style="position: relative;"><code style="font-family: Fira;">
+import { Injectable } from "@nestjs/common";
+
+@Injectable()
+export class AppService {
+    googleLogin(req) {
+        if (!req.user) {
+            return "No user from google";
+        }
+
+        return {
+            message: "User information from google",
+            user: req.user,
+        };
+    }
+}
+</code></pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div>
+<h2>5. Testing the Implementation</h2>
+<p>Test the integration by accessing <a href="http://localhost:3000/google/redirect">http://localhost:3000/google/redirect</a>.</p>
+<h2>6. Security Considerations</h2>
+<p>Securely store client IDs and secrets using environment variables or secret management tools. Ensure OAuth scopes adhere to the principle of least privilege.</p>
+<h2>Conclusion</h2>
+<p>This guide demonstrates a modular and maintainable approach to implementing Google OAuth in Nest.js, adhering to industry best practices.</body></html></p>
