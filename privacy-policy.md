@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Terms & Conditions
-permalink: /terms-and-conditions/
+title: privacy-policy
+permalink: /privacy-policy/
 ---
 
 <h2>RESPONSIBILITY</h2>
