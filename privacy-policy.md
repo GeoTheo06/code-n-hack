@@ -3,8 +3,7 @@ layout: default
 title: Terms & Conditions
 permalink: /terms-and-conditions/
 ---
-<p><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><br />
-<!-- wp:heading --><html><body></p>
+
 <h2>RESPONSIBILITY</h2>
 <p><!-- /wp:heading --></p>
 <p><!-- wp:paragraph --></p>
@@ -88,4 +87,3 @@ permalink: /terms-and-conditions/
 <p><!-- wp:paragraph --></p>
 <p><strong class="privacy-policy-tutorial">Suggested text: </strong>Visitor comments may be checked through an automated spam detection service.</p>
 <p><!-- /wp:paragraph --><br />
-</body></html></p>
